@@ -100,11 +100,6 @@
       color: var(--bg);
     }
     
-    .theme-toggle:focus {
-      outline: 1px dashed var(--fg);
-      outline-offset: 0px;
-    }
-    
     .container {
       max-width: 760px;
       margin: 0 auto;
@@ -116,8 +111,6 @@
       flex-wrap: wrap;
       gap: 1rem;
       margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--fg);
     }
     
     .link-button {
@@ -134,8 +127,10 @@
       transition: color 0s, background 0s, filter 0s;
     }
     
-    .link-button::after {
-      content: ' →';
+    .link-button::before {
+      content: '✒';
+      position: absolute;
+      left: -20px;
       opacity: 0;
       transition: opacity 0.25s;
     }
@@ -144,7 +139,7 @@
       color: var(--accent);
     }
     
-    .link-button:hover::after {
+    .link-button:hover::before {
       opacity: 1;
     }
     
