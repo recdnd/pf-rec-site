@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Backup files
+*_副本.html
+*_副本.*
+*副本*
+index_副本.html
+index2.html
+粒子修正前.html
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+
+# Local scripts (keep if needed, but typically ignore)
+自動push.command
+

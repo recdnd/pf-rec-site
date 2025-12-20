@@ -2,118 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rec Dungeons</title>
+  <title>Xue Juntao — pf.rec.ooo</title>
   <link rel="icon" type="image/png" href="redrec32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
+    // Mobile redirect - single instance in head
   (function() {
     if (window.innerWidth <= 768) {
       window.location.href = "mobile/index.html";
     }
   })();
 </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --bg: black;
-      --fg: red;
-      --text: red;
-    }
-    body.light, html.light {
       --bg: white;
       --fg: black;
       --text: black;
-      background: var(--bg);
-      color: var(--text);
-      
+      --accent: #dc2626;
     }
-    html, body {
+      
+    html.dark, body.dark {
+      --bg: #0a0a0a;
+      --fg: #e5e5e5;
+      --text: #e5e5e5;
+      --accent: #ef4444;
+    }
+    
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    body {
+      font-family: 'Courier New', monospace;
       background: var(--bg);
       color: var(--text);
-      font-family: 'Courier New', monospace;
-      height: 100vh;
+      line-height: 1.6;
+      transition: background 0.25s, color 0.25s;
+    }
+    
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--fg);
+      padding: 0.75rem 1.5rem;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      animation: fadeInPage 2s ease;
-      transition: background 0.5s, color 0.5s;
-      
+      z-index: 100;
+      transition: background 0.25s, border-color 0.25s;
     }
+    
+    .top-bar .site-name {
+      font-size: 0.9rem;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.25s;
+    }
+    
+    .top-bar .site-name:hover {
+      color: var(--accent);
+    }
+    
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--fg);
+      color: var(--fg);
+      padding: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: none;
+    }
+    
+    .theme-toggle:hover {
+      background: var(--fg);
+      color: var(--bg);
+    }
+    
+    .theme-toggle:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
     .container {
-      text-align: center;
-      z-index: 1;
-      animation: glitchIntro 0.5s ease-in;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
     }
-    @keyframes glitchIntro {
-		  0%   { opacity: 0; transform: translate(0, 0); }
-		  20%  { transform: translate(2px, -2px); }
-		  40%  { transform: translate(-2px, 2px); }
-		  60%  { transform: translate(1px, -1px); }
-		  80%  { transform: translate(-1px, 1px); }
-		  100% { opacity: 1; transform: translate(0, 0); }
-		}
-		
-		img.logo {
-		  width: 100px;
-		  height: auto;
-		  margin-bottom: 5rem;
-		  transition: filter 0.8s ease-out, transform 0.8s ease;
-		}
-		
-		img.logo:hover {
-		  filter: drop-shadow(0 0 60px red) brightness(4);
-		  transition: filter 0.05s ease-in, transform 0.4s ease;
-		}
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
+    
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--fg);
     }
-.link-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 180px));
-  justify-content: center;
-  gap: 0.6rem;
-  max-width: 800px;
-  width: 100%;
-}
-		.link-button {
-		  text-align: center;
-		}
-				/* 取代原本 flex 控制： */
-		.link-list a {
-		  min-width: 120px;
-		  text-align: center;
-		}
+    
     .link-button {
       color: var(--fg);
       background: transparent;
-      padding: 0.2rem 1rem;
-      margin: 1rem;
-      /* border: 1px solid var(--fg);*/s
-      font-size: 1rem;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.9rem;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
+      border: none;
+      font-family: inherit;
+      position: relative;
+      transition: color 0s, background 0s, filter 0s;
     }
-/* 黑色背景時，hover 文字變白 */
-body.light .link-button:hover {
-  color: red;  /* White */
-}
-
-/* 白色背景時，hover 文字變紅 */
-body:not(.light) .link-button:hover {
-  color: white;  /* Red */
-}
-
-.link-button:hover::before {
-  content: '✒'; /* 顯示箭頭 */
-  left: -20px; /* 調整箭頭位置 */
-  opacity: 1; /* 顯示箭頭 */
-}
+    
+    .link-button::after {
+      content: ' →';
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    
+    .link-button:hover {
+      color: var(--accent);
+    }
+    
+    .link-button:hover::after {
+      opacity: 1;
+    }
+    
 		.link-button:active {
 		  filter: brightness(1.8);
 		}
@@ -123,454 +157,462 @@ body:not(.light) .link-button:hover {
 		  outline-offset: 0px;
 		}
 		
-		
-		
-		.module-ring {
-		  position: absolute;
-		  top: -36%;
-		  left: 50%;
-		  width: 230px;
-		  height: 230px;
-		  animation: rotate 30s linear infinite;
-		  transform-origin: center center;
-		  z-index: 0;
-		  pointer-events: none;
-		}
-
-    .module-ring span {
-      position: absolute;
-      font-size: 1.2rem;
-    }
-    .module-ring span:nth-child(1) { top: 0%; left: 50%; transform: translateX(-50%); }
-    .module-ring span:nth-child(2) { top: 18%; left: 82%; transform: translate(-50%, -50%); }
-    .module-ring span:nth-child(3) { top: 50%; left: 100%; transform: translate(-50%, -50%); }
-    .module-ring span:nth-child(4) { top: 82%; left: 82%; transform: translate(-50%, -50%); }
-    .module-ring span:nth-child(5) { top: 100%; left: 50%; transform: translate(-50%, -100%); }
-    .module-ring span:nth-child(6) { top: 82%; left: 18%; transform: translate(-50%, -50%); }
-    .module-ring span:nth-child(7) { top: 50%; left: 0%; transform: translate(-50%, -50%); }
-    .module-ring span:nth-child(8) { top: 18%; left: 18%; transform: translate(-50%, -50%); }
-    @keyframes rotate {
-      from { transform: translateX(-50%) rotate(0deg); }
-      to { transform: translateX(-50%) rotate(360deg); }
-    }
-    .top-buttons {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      gap: 0.8rem;
-    }
-    .top-buttons button {
-      background: transparent;
-      border: 1px solid var(--fg);
-      color: var(--fg);
-      padding: 0.3rem 0.6rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    .top-buttons button:hover {
-      background: var(--fg);
-      color: var(--bg);
-    }
-    .message {
-      font-size: 0.8rem;
-      margin-top: 1rem;
-      opacity: 0.8;
+    section {
+      margin-top: 3.5rem;
     }
     
-    .invite-box {
-		  margin-top: 2rem;
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      letter-spacing: 0.3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: normal;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .hero {
+      margin-top: 0;
+    }
+    
+    .hero-name {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .hero-location {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .hero-contact {
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .hero-contact a {
+      color: var(--fg);
+      text-decoration: none;
+      transition: none;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .hero-contact a:hover {
+      color: var(--accent);
+    }
+    
+    .hero-contact a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .copy-feedback {
+      position: absolute;
+      left: 100%;
+      margin-left: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    
+    .copy-feedback.show {
+      opacity: 1;
+    }
+    
+    .hero-links {
 		  display: flex;
-		  flex-direction: column;
-		  align-items: center;
-		  gap: 0.5rem;
-		}
-		
-		.invite-code {
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-links a {
+      color: var(--fg);
+      text-decoration: none;
 		  font-size: 0.9rem;
-		  border: 1px dashed var(--fg);
-		  padding: 0.1rem 0.3rem;
-		  word-break: break-all;
-		  max-width: 90vw;
-		}
-		
-		
-		.invite-actions {
+      transition: none;
+      position: relative;
+    }
+    
+    .hero-links a:hover {
+      color: var(--accent);
+    }
+    
+    .hero-links a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .hero-cta {
+      margin-top: 1.5rem;
 		  display: flex;
-		  gap: 0.2rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
 		}
-		.invite-actions button {
-		  background: transparent;
-		  border: 1px solid var(--fg);
+    
+    .hero-cta a {
 		  color: var(--fg);
-		  padding: 0.1rem 0.3rem;
-		  font-size: 0.8rem;
-		  cursor: pointer;
-		}
-		.invite-actions button:hover {
-		  background: var(--fg);
-		  color: #39ff00;
-		}
-
-//強制邀請按鈕樣式對齊
-button.link-button {
-  font-family: 'Courier New', monospace;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-  padding: 0.9rem 1.5rem;
-  border: 1px solid var(--fg);
-  color: var(--fg);
-  background: transparent;
-  margin: 0.3rem;
-  cursor: pointer;
-}
-button.link-button:hover {
-  background: var(--fg);
-  color: var(--bg);
-  box-shadow: 0 0 3px var(--fg);
-}
-
-
-//郵件按鈕
-.email-modal {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--bg);
-  color: var(--text);
-  padding: 1.5rem;
-  z-index: 9999;
-  font-family: 'Courier New', monospace;
-  min-width: 280px;
-  max-width: 90vw;
-  box-shadow: 0 0 15px var(--fg);
-}
-
-.email-modal {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  z-index: 9999 !important;
-  backdrop-filter: blur(2px);
-}
-.email-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-.email-modal-close {
-  cursor: pointer;
-  padding-left: 1rem;
-  color: var(--fg);
-}
-
-.email-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.email-list code {
-  background: transparent;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.9rem;
+      text-decoration: none;
+      transition: none;
+      position: relative;
+    }
+    
+    .hero-cta a:hover {
+      color: var(--accent);
+    }
+    
+    .hero-cta a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 2px;
+    }
+    
+    .hero-title {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    .hero-description {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    ul li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.2rem;
+      position: relative;
+      font-size: 0.95rem;
+    }
+    
+    ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    
+    .project-item {
+      margin-bottom: 2rem;
+    }
+    
+    .project-title {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      font-size: 1.05rem;
   color: var(--text);
 }
 
-.email-list a {
+    .project-meta {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-description {
+      margin-top: 0.5rem;
+    }
+    
+    .project-description ul {
+      margin-top: 0.5rem;
+    }
+    
+    .project-link {
   text-decoration: none;
-  outline: none;
-}
-.email-list a code {
-  display: inline-block;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.9rem;
-  font-family: 'Courier New', monospace;
-  color: var(--text);
-  background: transparent;
-  transition: background;
-}
-.email-list a code:hover {
-  color: #00ff1e;
-  cursor: pointer;
-}
-.email-list a:focus code,
-.email-list a code:focus {
+      color: var(--accent);
+      transition: none;
+      position: relative;
+    }
+    
+    .project-link:focus {
   outline: 1px dashed var(--fg);
   outline-offset: 0px;
 }
 
-
-
+    .contact-section {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--fg);
+    }
+    
+    .contact-section a {
+      color: var(--fg);
+      text-decoration: none;
+      transition: none;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .contact-section a:hover {
+      color: var(--accent);
+    }
+    
+    .contact-section a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .download-link {
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 0.85rem;
+      margin-top: 1.5rem;
+      display: inline-block;
+    }
+    
+    html.dark .download-link,
+    body.dark .download-link {
+      color: rgba(229, 229, 229, 0.5);
+    }
+    
+    .download-link:hover {
+      color: var(--accent);
+    }
 
     @media (max-width: 768px) {
-		  .link-list {
-		    grid-template-columns: 1fr;
-		  }
-		}
-		#introCover {
-		  position: fixed;
-		  top: 0;
-		  left: 0;
-		  width: 100vw;
-		  height: 100vh;
-		  background: red;
-		  z-index: 9999;
-		  animation: fadeOutCover 0.6s ease forwards;
-		}
-		
-		@keyframes fadeOutCover {
-		  0% { opacity: 1; }
-		  90% { opacity: 0.1; }
-		  100% { opacity: 0; visibility: hidden; }
-		}
-
-#particleCanvas {
-  position: fixed; /* 確保它固定於背景 */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999; /* 確保它不會遮住其他內容 */
-  pointer-events: none; /* ← 加這行 */
-}
-
-
+      .container {
+        padding: 4rem 1.5rem 2rem;
+      }
+      
+      .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
   </style>
 </head>
-<body>
-	<div id="introCover"></div>
-	<canvas id="particleCanvas"></canvas>
-  <div class="top-buttons">
-	<div class="top-buttons">
-	  <button onclick="toggleTheme()">💡</button>
-	  <button onclick="bookmarkSite()">📌</button>
-	  <button onclick="goToMobile()">📱</button>
-	</div>
+<body class="light">
+  <div class="top-bar">
+    <a href="#top" class="site-name" onclick="handleLogoClick(event)">pf.rec.ooo</a>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">💡</button>
   </div>
+  
 		<div class="container">
-	  <div style="position: relative; display: inline-block;">
-	    <img id="logo" src="redrec.png" alt="Ret/Mat logo" class="logo">
-	    <div class="module-ring">
-	      <span>⭒</span><span>✞</span><span>𖤠</span><span>⛏︎</span>
-	      <span>𖤂</span><span>⚕︎</span><span>✑</span><span>✐</span><span>⭑</span>
+    <nav class="nav-links">
+      <a href="#education" class="link-button">Education</a>
+      <a href="#skills" class="link-button">Skills</a>
+      <a href="#projects" class="link-button">Projects</a>
+      <a href="#contact" class="link-button">Contact</a>
+    </nav>
+    
+    <section class="hero">
+      <h1 class="hero-name">Xue Juntao</h1>
+      <div class="hero-location">Tokyo, Japan</div>
+      <div class="hero-contact">
+        📧 <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">r@rec.ooo<span class="copy-feedback">copied ✓</span></a>
+      </div>
+      <div class="hero-links">
+        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer" onclick="handleCopyClick(event, 'git.rec.ooo')">🐈‍⬛ git.rec.ooo<span class="copy-feedback">copied ✓</span></a>
 	    </div>
-
+      <div class="hero-title">Product-oriented Engineer / Product Builder</div>
+      <p class="hero-description">
+        I translate ambiguous requirements into usable systems, working at a high abstraction layer.
+        My focus is on product architecture, UX-driven system design, and full-stack prototyping — bridging complex technology with coherent user-facing tools.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects">→ View Projects</a>
+        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">→ GitHub</a>
+      </div>
+    </section>
+    
+    <section id="education">
+      <h2>EDUCATION</h2>
+      <div class="project-item">
+        <div class="project-title">Rikkyo University, Tokyo</div>
+        <div class="project-meta">B.A. in History (Expected Jan 2027)</div>
+        <p>Focus: institutional systems, bureaucracy, legal structures, and information organization</p>
+        <p>Supplemented with AI ethics, Information Science coursework</p>
 	  </div>
-		
-    <div class="link-list">
-          <a class="link-button" href="https://spiral.ooo" target="_blank">⛏︎</a>
-          <a class="link-button" href="https://spirallab.org" target="_blank">/lab</a>
-          <a class="link-button" href="https://sus.church" target="_blank">/church</a>
-      <a class="link-button" href="https://x.com/recdungeons" target="_blank">.𝕏[軍田勇]</a>
-      <a class="link-button" href="https://archiveofourown.org/users/recdnd" target="_blank">ao3</a>
-      <a class="link-button" href="https://x.com/recdnd" target="_blank">.𝕏[MAIN]</a>
-      <a href="javascript:void(0)" class="link-button" onclick="toggleEmailModal()">/mailbox</a>
-      <a class="link-button" href="https://discord.gg/XsTmRs9RrG" target="_blank">/cord</a>
+      <div class="project-item">
+        <div class="project-title">Early University Coursework (U.S.)</div>
+        <div class="project-meta">Virginia Tech / Chicago</div>
+        <p>Calculus I–II, Linear Algebra, Data structures & object-oriented programming</p>
+        <p>Humanities & design coursework</p>
     </div>
-		<a href="javascript:void(0)" class="link-button" onclick="toggleInvite()">../and_specials_for_you</a>
-		
-		
-	<div class="link-zone">
-		<div class="invite-box" id="inviteBox" style="display: none;">
-		  <div class="invite-actions">
-		      <a></a></br>
-		    <button onclick="generateCode()">ECHO</button>
-		    <button onclick="copyCode()">✂️</button>
+    </section>
+    
+    <section id="skills">
+      <h2>CORE SKILLS (Selected)</h2>
+      <h3>Product & System Design</h3>
+      <ul>
+        <li>Product architecture & abstraction</li>
+        <li>UX-driven system design</li>
+        <li>Workflow & requirement structuring</li>
+        <li>Tooling & prototype development</li>
+      </ul>
+      <h3>Engineering</h3>
+      <ul>
+        <li>Languages: Python, TypeScript/JavaScript, C</li>
+        <li>Frontend: React, TypeScript, Tailwind, Radix UI</li>
+        <li>Backend: Node.js, Express, REST APIs, WebSocket</li>
+        <li>Database: PostgreSQL, Drizzle ORM, Firebase Auth</li>
+      </ul>
+      <h3>AI & Applied Systems</h3>
+      <ul>
+        <li>LLM API integration (OpenAI, Claude)</li>
+        <li>Prompt architecture & symbolic systems</li>
+        <li>Custom DSL design & C-based interpreter</li>
+        <li>AI-assisted workflows (non-algorithm focus)</li>
+      </ul>
+      <h3>Design</h3>
+      <ul>
+        <li>Figma, Adobe Suite, CSP</li>
+        <li>UI system & interaction prototyping</li>
+      </ul>
+    </section>
+    
+    <section id="projects">
+      <h2>SELECTED PROJECTS</h2>
+      <div class="project-item">
+        <div class="project-title">Spiral / SpiralVM</div>
+        <div class="project-meta">Founder & Lead Developer | 2024–Present</div>
+        <div class="project-description">
+          <ul>
+            <li>Designed an experimental language-and-system framework for abstraction, recursion, and memory-bound interaction.</li>
+            <li>Built a C-based virtual machine and execution pipeline to run a custom DSL for structured language modeling and tool-like behaviors.</li>
+            <li>Engineered a traceable event-history kernel with conflict-aware observability to ensure stable, explainable system behavior.</li>
+            <li>Shipped product-level prototypes, translating research specifications into usable interfaces and tooling.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Spiral.ooo — Product Prototype Platform <a href="https://spiral.ooo" target="_blank" rel="noopener noreferrer" class="project-link">→</a></div>
+        <div class="project-meta">Developer & System Architect | 2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Built a full-stack semantic editor platform with modular backend architecture and AI-assisted rendering.</li>
+            <li>Designed end-to-end product stack (React / Node / PostgreSQL / Stripe / AI APIs).</li>
+            <li>Focused on usability, system coherence, and iterative product design.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Applied AI Tools & Platforms (Selected)</div>
+        <div class="project-meta">Full-stack Developer | 2023–2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Developed chatbots and event-driven systems for QQ / Discord using Python.</li>
+            <li>Built a research-oriented publication platform with structured citation management and AI-assisted summaries.</li>
+            <li>Designed internal tools emphasizing workflow clarity and user-facing simplicity.</li>
+          </ul>
 		  </div>
-		  <div id="inviteCode" class="invite-code">[░░░░::░░░░]</div>
 		</div>
-
-    <div class="message" id="bookmarkMsg"></div>
-		</div>
-
+    </section>
+    
+    <section id="languages">
+      <h2>LANGUAGES</h2>
+      <ul>
+        <li>Chinese (Native)</li>
+        <li>English (Fluent)</li>
+        <li>Japanese (Fluent / N1)</li>
+      </ul>
+    </section>
+    
+    <section id="contact" class="contact-section">
+      <h2>CONTACT</h2>
+      <p>Email: <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">r@rec.ooo<span class="copy-feedback">copied ✓</span></a></p>
+      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer" onclick="handleCopyClick(event, 'git.rec.ooo')">git.rec.ooo<span class="copy-feedback">copied ✓</span></a></p>
+      <a href="XueJuntao_ProductEngineer.pdf" class="download-link" download>↧ Download résumé.pdf</a>
+    </section>
   </div>
   
   <script>
-    function bookmarkSite() {
-      const msg = document.getElementById("bookmarkMsg");
-      const url = window.location.href;
-      const title = document.title;
-      if (window.sidebar && window.sidebar.addPanel) {
-        window.sidebar.addPanel(title, url, '');
-      } else if (window.external && ('AddFavorite' in window.external)) {
-        window.external.AddFavorite(url, title);
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      document.documentElement.classList.toggle("dark");
+    }
+
+    // Logo click: smooth scroll to top
+    function handleLogoClick(event) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Copy to clipboard with inline feedback
+    function handleCopyClick(event, text) {
+      event.preventDefault();
+      const link = event.currentTarget;
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCopyFeedback(link);
+        }).catch(() => {
+          fallbackCopy(text, link);
+        });
       } else {
-        msg.textContent = "🔖press Ctrl+D (or Cmd+D) to bookmark this page☆";
-        setTimeout(() => msg.textContent = '', 3000);
+        fallbackCopy(text, link);
       }
     }
-    
-		function toggleEmailModal() {
-		  const modal = document.getElementById("emailModal");
-		  const body = document.body;
-		  const isVisible = modal.style.display === "block";
-		  modal.style.display = isVisible ? "none" : "block";
-		  body.style.overflow = isVisible ? "auto" : "hidden"; // 只在 modal 開啟時隱藏滾動
-		}
-    function toggleInvite() {
-		  const box = document.getElementById("inviteBox");
-		  box.style.display = (box.style.display === "none") ? "flex" : "none";
-		}
-    //亂碼生成
-function generateCode() {
-  const seed = Date.now().toString(36) + navigator.userAgent.length;
-  const base = btoa(seed).replace(/[^a-zA-Z0-9]/g, '').slice(0, 24);
-  const finalCode = `[SPIRAL::INVITE]::${base}::𝓡`;
 
-  const inviteElem = document.getElementById("inviteCode");
-
-  let frame = 0;
-  const totalFrames = 15;
-  const charset = "█▒░<>:;!#&%?~ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-  let animation = setInterval(() => {
-    let display = '';
-    for (let i = 0; i < finalCode.length; i++) {
-      if (i < (frame / totalFrames) * finalCode.length) {
-        display += finalCode[i];
-      } else {
-        display += charset[Math.floor(Math.random() * charset.length)];
+    function showCopyFeedback(link) {
+      const feedback = link.querySelector('.copy-feedback');
+      if (feedback) {
+        feedback.classList.add('show');
+        setTimeout(() => {
+          feedback.classList.remove('show');
+        }, 1200);
       }
     }
-    inviteElem.textContent = display;
-    frame++;
-    if (frame > totalFrames) {
-      clearInterval(animation);
-      inviteElem.textContent = finalCode;
+
+    function fallbackCopy(text, link) {
+      // Create temporary input to select text
+      const input = document.createElement('input');
+      input.value = text;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      try {
+        document.execCommand('copy');
+        showCopyFeedback(link);
+        // Show manual copy message
+        const feedback = link.querySelector('.copy-feedback');
+        if (feedback) {
+          feedback.textContent = 'select to copy';
+          setTimeout(() => {
+            feedback.textContent = 'copied ✓';
+          }, 500);
+        }
+      } catch (err) {
+        // If all fails, show manual message
+        const feedback = link.querySelector('.copy-feedback');
+        if (feedback) {
+          feedback.textContent = 'select to copy';
+          feedback.classList.add('show');
+          setTimeout(() => {
+            feedback.classList.remove('show');
+            feedback.textContent = 'copied ✓';
+          }, 2000);
+        }
+      }
+      document.body.removeChild(input);
     }
-  }, 40);
-}
-
-		
-		function copyCode() {
-		  const text = document.getElementById("inviteCode").textContent;
-		  navigator.clipboard.writeText(text).then(() => {
-		    const msg = document.getElementById("bookmarkMsg");
-		    msg.textContent = "✓Invitation code copied.";
-		    setTimeout(() => msg.textContent = '', 3000);
-		  });
-		}
-
-		function toggleTheme() {
-		  document.body.classList.toggle("light");
-		  document.documentElement.classList.toggle("light");
-		  const logo = document.getElementById("logo");
-		  const isLight = document.body.classList.contains("light");
-		  logo.src = isLight ? "447blackmat.png" : "redrec.png";
-		  
-		  // 切換粒子顏色 螢光綠/紅
-		  particleColor = isLight ? "rgba(31, 255, 0)" : "rgba(255, 0, 0, 1)";
-		}
-
-  </script>
-  				<div class="email-modal" id="emailModal" style="display: none;">
-				  <div class="email-modal-header">
-				    mailinglist
-				    <span class="email-modal-close" onclick="toggleEmailModal()">☒</span>
-				  </div>
-
-<div class="email-list">
-  <a href="javascript:void(0)" onclick="copyEmailAndRedirect('rec@rec.ooo')"><code>rec@rec.ooo(primary)</code></a>
-  <a href="javascript:void(0)" onclick="copyEmailAndRedirect('admin@spiral.ooo')"><code>admin@spiral.ooo</code></a>
-  <a href="javascript:void(0)" onclick="copyEmailAndRedirect('recdnd@proton.me')"><code>recdnd@proton.me</code></a>
-  <a href="javascript:void(0)" onclick="copyEmailAndRedirect('recdungeons@gmail.com')"><code>recdungeons@gmail.com</code></a>
-</div>
-				</div>
-
-				<script>
-				function copyEmailAndRedirect(email) {
-  // 複製到剪貼板
-  navigator.clipboard.writeText(email).then(() => {
-    const msg = document.getElementById("bookmarkMsg");
-    msg.textContent = `📋 ${email} copied to clipboard!`;
-    setTimeout(() => msg.textContent = '', 3000);
-  });
-
-  // 重定向到 mailto
-  window.location.href = `mailto:${email}`;
-}
 </script>
-<script>
-const canvas = document.getElementById("particleCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const particles = [];
-let particleColor = "rgba(255, 0, 0, 1)";
-
-
-function Particle(x, y) {
-  this.x = x;
-  this.y = y;
-  this.size = 1;  // 大小
-  this.speedX = Math.random() * 2 - 1;  // 隨機水平方向速度
-  this.speedY = Math.random() * 2 - 1;  // 隨機垂直方向速度
-}
-
-Particle.prototype.update = function() {
-  this.x += this.speedX;
-  this.y += this.speedY;
-  this.size *= 0.98; // 減緩消失速度，使其持續更久
-  this.life -= 1;  // 顯示粒子剩餘生命時間
-  ctx.globalAlpha = 1.0;
-	ctx.strokeStyle = particleColor;
-	ctx.fillStyle = particleColor;
-	ctx.shadowColor = particleColor;
-	ctx.beginPath();
-	ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-	ctx.fill();
-	ctx.stroke();
-  ctx.strokeStyle = particleColor;
-  ctx.lineWidth = 0.5;
-  ctx.beginPath();
-  ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-};
-
-function createParticles(e) {
-  const xPos = e.x;
-  const yPos = e.y;
-  for (let i = 0; i < 5; i++) {
-    particles.push(new Particle(xPos, yPos));
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空畫布
-  for (let i = 0; i < particles.length; i++) {
-    particles[i].update();
-    if (particles[i].size <= 0.2) {
-      particles.splice(i, 1); // 移除小的粒子
-    }
-  }
-}
-
-document.addEventListener("mousemove", createParticles);
-setInterval(animateParticles, 20); // 每20ms更新一次粒子
-</script>
-
-<script>
-  function goToMobile() {
-    window.location.href = "mobile/index.html";
-  }
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    if (window.innerWidth <= 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-      window.location.href = "mobile/index.html";
-    }
-  });
-</script>
-
 </body>
 </html>
