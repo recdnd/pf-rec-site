@@ -10,6 +10,51 @@
   <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="redrec32.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://rec.ooo/#person",
+      "name": "Xue Juntao",
+      "alternateName": ["Rec"],
+      "email": "mailto:r@rec.ooo",
+      "jobTitle": "Product-oriented Engineer / Product Builder",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tokyo",
+        "addressCountry": "JP"
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Rikkyo University" }
+      ],
+      "knowsLanguage": ["zh", "en", "ja"],
+      "url": "https://rec.ooo/",
+      "sameAs": [
+        "https://github.com/recdnd",
+        "https://git.rec.ooo",
+        "https://www.linkedin.com/in/juntaoxue/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://rec.ooo/#website",
+      "url": "https://rec.ooo/",
+      "name": "rec.ooo",
+      "publisher": { "@id": "https://rec.ooo/#person" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pf.rec.ooo/#webpage",
+      "url": "https://pf.rec.ooo/",
+      "name": "Xue Juntao — pf.rec.ooo",
+      "isPartOf": { "@id": "https://rec.ooo/#website" },
+      "about": { "@id": "https://rec.ooo/#person" }
+    }
+  ]
+}
+</script>
 <script>
     // Mobile redirect - single instance in head
   (function() {
@@ -461,6 +506,11 @@
     html.inverted video,
     html.inverted iframe {
       filter: invert(1);
+    }
+    
+    /* 让主题切换按钮文字在黑夜模式下更清晰 */
+    html.inverted .theme-toggle {
+      color: white;
     }
     
     /* Inverted mode: download link color */
