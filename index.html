@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Xue Juntao — pf.rec.ooo</title>
+  <meta name="description" content="Xue Juntao (Rec) — Product-oriented Engineer / Product Builder. Full-stack prototyping, system design, and experimental DSL / VM projects (Spiral).">
+  <meta property="og:title" content="Xue Juntao (Rec) — Product-oriented Engineer / Product Builder">
+  <meta property="og:description" content="Full-stack prototyping, system design, and experimental DSL/VM systems (Spiral).">
+  <meta property="og:url" content="https://pf.rec.ooo/">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="redrec32.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
@@ -137,11 +142,11 @@
     
     .link-button:hover {
       color: var(--accent);
-    }
-    
-    .link-button:hover::before {
+}
+
+.link-button:hover::before {
       opacity: 1;
-    }
+}
     
 		.link-button:active {
 		  filter: brightness(1.8);
@@ -221,6 +226,11 @@
       outline-offset: 0px;
     }
     
+    .hero-contact a:focus:hover {
+      outline: 1px dashed var(--accent);
+      outline-offset: 0px;
+    }
+    
     .copy-feedback {
       position: absolute;
       left: 100%;
@@ -257,6 +267,11 @@
     
     .hero-links a:focus {
       outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .hero-links a:focus:hover {
+      outline: 1px dashed var(--accent);
       outline-offset: 0px;
     }
     
@@ -420,10 +435,10 @@
       <h1 class="hero-name">Xue Juntao</h1>
       <div class="hero-location">Tokyo, Japan</div>
       <div class="hero-contact">
-        📧 <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">r@rec.ooo<span class="copy-feedback">copied ✓</span></a>
+        <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">📧 r@rec.ooo<span class="copy-feedback">copied ✓</span></a>
       </div>
       <div class="hero-links">
-        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer" onclick="handleCopyClick(event, 'git.rec.ooo')">🐈‍⬛ git.rec.ooo<span class="copy-feedback">copied ✓</span></a>
+        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">🐈‍⬛ git.rec.ooo</a>
 	    </div>
       <div class="hero-title">Product-oriented Engineer / Product Builder</div>
       <p class="hero-description">
@@ -497,6 +512,20 @@
         </div>
       </div>
       <div class="project-item">
+        <div class="project-title">
+          spiral-core-series — Append-only event history kernel
+          <a href="https://github.com/recdnd/spiral-core-series" target="_blank" rel="noopener noreferrer" class="project-link">→</a>
+        </div>
+        <div class="project-meta">Open-source prototype series | 2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Shipped v0.46: RECENT_A frontier — a trace-closure view over an append-only event DAG (not a sliding window).</li>
+            <li>Implemented conflict-aware observability with "strong binding": derived conflict signals must be attributable to a concrete conflict input pair via parent_ids.</li>
+            <li>Enforced invariants: append-only log (no edits/deletes) + parent consistency checks for explainable causality.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
         <div class="project-title">Spiral.ooo — Product Prototype Platform <a href="https://spiral.ooo" target="_blank" rel="noopener noreferrer" class="project-link">→</a></div>
         <div class="project-meta">Developer & System Architect | 2025</div>
         <div class="project-description">
@@ -531,8 +560,8 @@
     
     <section id="contact" class="contact-section">
       <h2>CONTACT</h2>
-      <p>Email: <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">r@rec.ooo<span class="copy-feedback">copied ✓</span></a></p>
-      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer" onclick="handleCopyClick(event, 'git.rec.ooo')">git.rec.ooo<span class="copy-feedback">copied ✓</span></a></p>
+      <p>Email: <a href="mailto:r@rec.ooo">r@rec.ooo</a></p>
+      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">Github</a></p>
       <a href="XueJuntao_ProductEngineer.pdf" class="download-link" download>↧ Download résumé.pdf</a>
     </section>
   </div>
