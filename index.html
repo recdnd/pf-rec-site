@@ -133,11 +133,9 @@
     }
     
     .link-button::before {
-      content: '✒';
+      content: '';
       position: absolute;
       left: 0px;
-      opacity: 0;
-      transition: opacity 0.25s;
     }
     
     .link-button:hover {
@@ -145,8 +143,10 @@
 }
 
 .link-button:hover::before {
+      content: '✒';
       opacity: 1;
-}
+      transition: opacity 0.25s;
+    }
     
 		.link-button:active {
 		  filter: brightness(1.8);
@@ -204,8 +204,14 @@
       font-size: 0.95rem;
     }
     
-    .hero-contact {
+    .hero-contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
       margin-bottom: 1.5rem;
+    }
+    
+    .hero-contact {
       font-size: 0.9rem;
     }
     
@@ -217,8 +223,20 @@
       cursor: pointer;
     }
     
+    .hero-contact a::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+    }
+    
     .hero-contact a:hover {
       color: var(--accent);
+    }
+    
+    .hero-contact a:hover::before {
+      content: '✒';
+      opacity: 1;
+      transition: opacity 0.25s;
     }
     
     .hero-contact a:focus {
@@ -247,10 +265,7 @@
     }
     
     .hero-links {
-		  display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      font-size: 0.9rem;
     }
     
     .hero-links a {
@@ -261,8 +276,20 @@
       position: relative;
     }
     
+    .hero-links a::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+    }
+    
     .hero-links a:hover {
       color: var(--accent);
+    }
+    
+    .hero-links a:hover::before {
+      content: '✒';
+      opacity: 1;
+      transition: opacity 0.25s;
     }
     
     .hero-links a:focus {
@@ -323,7 +350,7 @@
     }
     
     ul li::before {
-      content: '•';
+      content: '-';
       position: absolute;
       left: 0;
       color: var(--accent);
@@ -434,21 +461,23 @@
     <section class="hero">
       <h1 class="hero-name">Xue Juntao</h1>
       <div class="hero-location">Tokyo, Japan</div>
-      <div class="hero-contact">
-        <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">📧 r@rec.ooo<span class="copy-feedback">copied ✓</span></a>
-      </div>
-      <div class="hero-links">
-        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">🐈‍⬛ git.rec.ooo</a>
+      <div class="hero-contact-links">
+        <div class="hero-contact">
+          <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">📧 r@rec.ooo<span class="copy-feedback">copied ✓</span></a>
+        </div>
+        <div class="hero-links">
+          <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">🐈‍⬛ git.rec.ooo</a>
+        </div>
 	    </div>
       <div class="hero-title">Product-oriented Engineer / Product Builder</div>
       <p class="hero-description">
         I translate ambiguous requirements into usable systems, working at a high abstraction layer.
         My focus is on product architecture, UX-driven system design, and full-stack prototyping — bridging complex technology with coherent user-facing tools.
       </p>
-      <div class="hero-cta">
+      <!-- <div class="hero-cta">
         <a href="#projects">→ View Projects</a>
         <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">→ GitHub</a>
-      </div>
+      </div> -->
     </section>
     
     <section id="education">
@@ -561,7 +590,7 @@
     <section id="contact" class="contact-section">
       <h2>CONTACT</h2>
       <p>Email: <a href="mailto:r@rec.ooo">r@rec.ooo</a></p>
-      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">Github</a></p>
+      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">recdnd</a></p>
       <a href="XueJuntao_ProductEngineer.pdf" class="download-link" download>↧ Download résumé.pdf</a>
     </section>
   </div>
