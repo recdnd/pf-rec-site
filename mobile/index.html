@@ -7,13 +7,32 @@
   <meta name="description" content="Xue Juntao (Rec) — Product-oriented Engineer / Product Builder. Full-stack prototyping, system design, and experimental DSL / VM projects (Spiral).">
   <link rel="icon" type="image/png" href="../redrec32.png">
   <style>
+    /* Theme vars (default = light) */
     :root {
       --bg: white;
       --fg: black;
       --text: black;
       --accent: #dc2626;
       --btn-bg: rgba(0, 0, 0, 0.1);
+      --particle-color: rgba(220, 38, 38, 0.3);
     }
+
+    /* Persistent invert mode */
+    html.inverted {
+      background: var(--bg);
+    }
+
+    html.inverted body {
+      filter: invert(1);
+    }
+
+    /* 让图片/emoji不被反相（可选：如果你不在意可删） */
+    html.inverted img,
+    html.inverted video,
+    html.inverted iframe {
+      filter: invert(1);
+    }
+    
 
     * {
       margin: 0;
@@ -69,12 +88,36 @@
       opacity: 0.9;
     }
 
+    .theme-toggle-mobile {
+      bottom: auto;
+      top: 1rem;
+      left: auto;
+      right: 1rem;
+    }
+
     .nav-toggle:active {
       transform: scale(0.95);
     }
 
     .nav-toggle.hidden {
       display: none;
+    }
+    
+    /* Ink spread overlay */
+    /* Ink spread overlay: invert the BACKDROP (page underneath) */
+    .theme-ink {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      pointer-events: none;
+      will-change: clip-path;
+      clip-path: circle(0px at 50% 50%);
+
+      /* a tiny alpha so backdrop-filter actually applies (Safari/Chrome need it) */
+      background: var(--ink-tint, rgba(0,0,0,0.001));
+
+      -webkit-backdrop-filter: invert(1);
+      backdrop-filter: invert(1);
     }
 
     /* Side buttons container */
@@ -312,31 +355,40 @@
         height: 40px;
         font-size: 1.3rem;
       }
+      
+      .theme-toggle-mobile {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
 		}
   </style>
 </head>
-<body>
-  <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle navigation">⋯</button>
+<body class="light">
+  <div id="appRoot">
+    <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle navigation">⋯</button>
+    <button class="nav-toggle theme-toggle-mobile" id="themeToggleMobile" onclick="toggleInvert(event)" aria-label="Toggle invert">💡</button>
 
-  <div class="side-buttons left-buttons collapsed" id="leftButtons">
-    <button class="circle-btn" onclick="handleNavAction('top')" aria-label="Home">⌂</button>
-    <button class="circle-btn" onclick="handleNavAction('education')" aria-label="Education">🎓</button>
-    <button class="circle-btn" onclick="handleNavAction('skills')" aria-label="Skills">🧰</button>
-    <button class="circle-btn" onclick="handleNavAction('projects')" aria-label="Projects">🧱</button>
-  </div>
+    <div class="side-buttons left-buttons collapsed" id="leftButtons">
+      <button class="circle-btn" onclick="handleNavAction('top')" aria-label="Home">⌂</button>
+      <button class="circle-btn" onclick="handleNavAction('education')" aria-label="Education">🎓</button>
+      <button class="circle-btn" onclick="handleNavAction('skills')" aria-label="Skills">🧰</button>
+      <button class="circle-btn" onclick="handleNavAction('projects')" aria-label="Projects">🧱</button>
+    </div>
 
-  <div class="side-buttons right-buttons collapsed" id="rightButtons">
-    <button class="circle-btn" onclick="handleNavAction('mailto:r@rec.ooo', true, 'Compose E-mail to me. Confirm?')" aria-label="Email">✉️</button>
-    <button class="circle-btn" onclick="handleNavAction('https://git.rec.ooo', true, 'Open Github/recdnd(external site). Confirm jump?')" aria-label="GitHub">🐈‍⬛</button>
-    <button class="circle-btn" onclick="handleNavAction('https://spiral.ooo', true, 'Open live product demo(external site). Confirm jump?')" aria-label="Spiral.ooo">🔗</button>
-      <button class="circle-btn"
-    onclick="confirmJump('https://github.com/recdnd/spiral-core-series', 'Open spiral-core-series(external site). Confirm jump?')">🌀*</button>
-    <button class="circle-btn" onclick="handleNavAction('top')" aria-label="Top">⬆︎</button>
-  </div>
+    <div class="side-buttons right-buttons collapsed" id="rightButtons">
+      <button class="circle-btn" onclick="handleNavAction('mailto:r@rec.ooo', true, 'Compose E-mail to me. Confirm?')" aria-label="Email">✉️</button>
+      <button class="circle-btn" onclick="handleNavAction('https://git.rec.ooo', true, 'Open Github/recdnd(external site). Confirm jump?')" aria-label="GitHub">🐈‍⬛</button>
+      <button class="circle-btn" onclick="handleNavAction('https://spiral.ooo', true, 'Open live product demo(external site). Confirm jump?')" aria-label="Spiral.ooo">🔗</button>
+      <button class="circle-btn" onclick="confirmJump('https://github.com/recdnd/spiral-core-series', 'Open spiral-core-series(external site). Confirm jump?')">🌀*</button>
+      <button class="circle-btn" onclick="handleDownloadResume()" aria-label="Download Resume">⇩</button>
+    </div>
 
-  <canvas id="particleCanvas"></canvas>
+    <canvas id="particleCanvas"></canvas>
 
-  <div class="container" id="top">
+    <div class="container" id="top">
     <section class="hero">
       <h1 class="hero-name">Xue Juntao</h1>
       <div class="hero-location">Tokyo, Japan</div>
@@ -465,6 +517,7 @@
       <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">recdnd</a></p>
     </section>
   </div>
+  </div>
 
   <script>
     let isNavExpanded = false;
@@ -535,6 +588,98 @@
       // Haptic feedback
       if ("vibrate" in navigator) {
         navigator.vibrate(50);
+      }
+    }
+
+    // Download resume
+    function handleDownloadResume() {
+      if (confirm("Download résumé.pdf. Continue?")) {
+        const link = document.createElement('a');
+        link.href = '../XueJuntao_ProductEngineer.pdf';
+        link.download = 'XueJuntao_ProductEngineer.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      // Auto-collapse after action
+      setTimeout(collapseNav, 300);
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(50);
+      }
+    }
+
+    // apply saved mode on load
+    (function () {
+      const saved = localStorage.getItem("pf_inverted");
+      if (saved === "1") document.documentElement.classList.add("inverted");
+    })();
+
+    // Toggle invert with ink spread effect
+    function toggleInvert(event) {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const btn = event.currentTarget || event.target;
+      const rect = btn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      const root = document.documentElement;
+      const nextOn = !root.classList.contains("inverted");
+
+      // reduced motion: instant
+      if (reduceMotion) {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        if ("vibrate" in navigator) {
+          navigator.vibrate(30);
+        }
+        return;
+      }
+
+      const supportsBackdrop =
+        CSS.supports("backdrop-filter: invert(1)") ||
+        CSS.supports("-webkit-backdrop-filter: invert(1)");
+
+      // fallback if no backdrop-filter: just toggle
+      if (!supportsBackdrop) {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        if ("vibrate" in navigator) {
+          navigator.vibrate(30);
+        }
+        return;
+      }
+
+      // overlay: invert what's underneath while it spreads
+      const ink = document.createElement("div");
+      ink.className = "theme-ink";
+      ink.style.setProperty("--ink-tint", "rgba(0,0,0,0.001)");
+      ink.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+      document.body.appendChild(ink);
+
+      const radius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      const anim = ink.animate(
+        [
+          { clipPath: `circle(0px at ${x}px ${y}px)` },
+          { clipPath: `circle(${radius}px at ${x}px ${y}px)` }
+        ],
+        { duration: 600, easing: "cubic-bezier(0.4, 0, 0.2, 1)" }
+      );
+
+      anim.onfinish = () => {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        ink.remove();
+      };
+      
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(30);
       }
     }
 
