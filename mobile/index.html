@@ -22,14 +22,19 @@
       background: var(--bg);
     }
 
-    html.inverted body {
+    #invertLayer {
+      background-color: var(--bg);
+      min-height: 100vh;
+    }
+    
+    html.inverted #invertLayer {
       filter: invert(1);
     }
 
     /* 让图片/emoji不被反相（可选：如果你不在意可删） */
-    html.inverted img,
-    html.inverted video,
-    html.inverted iframe {
+    html.inverted #invertLayer img,
+    html.inverted #invertLayer video,
+    html.inverted #invertLayer iframe {
       filter: invert(1);
     }
     
@@ -379,7 +384,7 @@
       <button class="circle-btn" onclick="handleNavAction('education')" aria-label="Education">🎓</button>
       <button class="circle-btn" onclick="handleNavAction('skills')" aria-label="Skills">🧰</button>
       <button class="circle-btn" onclick="handleNavAction('projects')" aria-label="Projects">🧱</button>
-    </div>
+  </div>
 
     <div class="side-buttons right-buttons collapsed" id="rightButtons">
       <button class="circle-btn" onclick="handleNavAction('mailto:r@rec.ooo', true, 'Compose E-mail to me. Confirm?')" aria-label="Email">✉️</button>
@@ -389,9 +394,11 @@
       <button class="circle-btn" onclick="handleDownloadResume()" aria-label="Download Resume">⇩</button>
     </div>
 
-    <canvas id="particleCanvas"></canvas>
+    <!-- 👇 新增一層，專門給 invert -->
+    <div id="invertLayer">
+      <canvas id="particleCanvas"></canvas>
 
-    <div class="container" id="top">
+      <div class="container" id="top">
     <section class="hero">
       <h1 class="hero-name">Xue Juntao</h1>
       <div class="hero-location">Tokyo, Japan</div>
@@ -520,6 +527,7 @@
       <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">recdnd</a></p>
     </section>
   </div>
+    </div>
   </div>
 
   <script>
