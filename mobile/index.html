@@ -326,9 +326,11 @@
   </div>
 
   <div class="side-buttons right-buttons collapsed" id="rightButtons">
-    <button class="circle-btn" onclick="handleNavAction('mailto:r@rec.ooo', true)" aria-label="Email">✉️</button>
-    <button class="circle-btn" onclick="handleNavAction('https://github.com/recdnd', true)" aria-label="GitHub">🐈‍⬛</button>
-    <button class="circle-btn" onclick="handleNavAction('https://spiral.ooo', true, 'Open live product demo?')" aria-label="Spiral.ooo">🔗</button>
+    <button class="circle-btn" onclick="handleNavAction('mailto:r@rec.ooo', true, 'Compose E-mail to me. Confirm?')" aria-label="Email">✉️</button>
+    <button class="circle-btn" onclick="handleNavAction('https://git.rec.ooo', true, 'Open Github/recdnd(external site). Confirm jump?')" aria-label="GitHub">🐈‍⬛</button>
+    <button class="circle-btn" onclick="handleNavAction('https://spiral.ooo', true, 'Open live product demo(external site). Confirm jump?')" aria-label="Spiral.ooo">🔗</button>
+      <button class="circle-btn"
+    onclick="confirmJump('https://github.com/recdnd/spiral-core-series', 'Open spiral-core-series(external site). Confirm jump?')">🌀*</button>
     <button class="circle-btn" onclick="handleNavAction('top')" aria-label="Top">⬆︎</button>
   </div>
 
