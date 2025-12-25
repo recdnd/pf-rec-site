@@ -104,6 +104,10 @@
       transition: none;
     }
     
+    .theme-toggle + .theme-toggle {
+      margin-left: 0.8rem;
+    }
+    
     .theme-toggle:hover {
       background: var(--fg);
       color: var(--bg);
@@ -506,6 +510,7 @@
       <a href="#contact" class="link-button">Contact</a>
     </nav>
     <button class="theme-toggle" onclick="toggleInvert(event)" aria-label="Toggle invert">💡</button>
+    <button class="theme-toggle" onclick="goToMobile()" aria-label="Go to mobile version">📱</button>
   </div>
   
 		<div class="container">
@@ -708,6 +713,11 @@
         localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
         ink.remove();
       };
+    }
+
+    // Go to mobile version
+    function goToMobile() {
+      window.location.href = "mobile/index.html";
     }
 
     // Logo click: smooth scroll to top
