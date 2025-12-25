@@ -68,13 +68,19 @@
       left: 0;
       right: 0;
       background: var(--bg);
-      border-bottom: 1px solid var(--fg);
       padding: 0.75rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
       transition: background 0.25s, border-color 0.25s;
+    }
+    
+    .top-bar .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
     }
     
     .top-bar .site-name {
@@ -115,7 +121,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 3rem;
+      align-items: center;
     }
     
     .link-button {
@@ -207,7 +213,7 @@
     .hero-contact-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 28px;
+      gap: 34px;
       margin-bottom: 1.5rem;
     }
     
@@ -447,16 +453,16 @@
 <body class="light">
   <div class="top-bar">
     <a href="#top" class="site-name" onclick="handleLogoClick(event)">pf.rec.ooo</a>
+    <nav class="nav-links">
+      <a href="#education" class="link-button">Education</a>
+      <a href="#skills" class="link-button">Skills</a>
+      <a href="#projects" class="link-button">Projects</a>
+      <a href="#contact" class="link-button">Contact</a>
+    </nav>
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">💡</button>
   </div>
   
 		<div class="container">
-    <nav class="nav-links">
-      <a href="#education" class="link-button">/Education</a>
-      <a href="#skills" class="link-button">/Skills</a>
-      <a href="#projects" class="link-button">/Projects</a>
-      <a href="#contact" class="link-button">/Contact</a>
-    </nav>
     
     <section class="hero">
       <h1 class="hero-name">Xue Juntao</h1>
