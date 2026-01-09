@@ -281,6 +281,9 @@
     }
     
     .hero-contact {
+      display: inline-block;
+      position: relative;
+      padding-bottom: 1.2rem; /* 預留 feedback 空間.顯示時不擠壓排版 */
       font-size: 0.9rem;
     }
     
@@ -288,7 +291,6 @@
       color: var(--fg);
       text-decoration: none;
       transition: none;
-      position: relative;
       cursor: pointer;
     }
     
@@ -318,18 +320,19 @@
       outline-offset: 0px;
     }
     
-    .copy-feedback {
+    .hero-contact .copy-feedback {
       position: absolute;
-      left: 100%;
-      margin-left: 0.5rem;
-      font-size: 0.85rem;
+      top: calc(100% - 1.0rem); /* 落在 padding-bottom 預留區裡 */
+      left: 0;
+      font-size: 0.75rem;
       color: var(--accent);
       opacity: 0;
       transition: opacity 0.2s;
       white-space: nowrap;
+      pointer-events: none;
     }
     
-    .copy-feedback.show {
+    .hero-contact .copy-feedback.show {
       opacity: 1;
     }
     
@@ -570,7 +573,8 @@
       <div class="hero-location">Tokyo, Japan</div>
       <div class="hero-contact-links">
         <div class="hero-contact">
-          <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">📧 r@rec.ooo<span class="copy-feedback">copied ✓</span></a>
+          <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">📧 r@rec.ooo</a>
+          <span class="copy-feedback" aria-live="polite">copied ✓</span>
         </div>
         <div class="hero-links">
           <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">🐈‍⬛ git.rec.ooo</a>
@@ -793,13 +797,14 @@
     }
 
     function showCopyFeedback(link) {
-      const feedback = link.querySelector('.copy-feedback');
-      if (feedback) {
-        feedback.classList.add('show');
-        setTimeout(() => {
-          feedback.classList.remove('show');
-        }, 1200);
-      }
+      const wrap = link.closest('.hero-contact');
+      if (!wrap) return;
+
+      const feedback = wrap.querySelector('.copy-feedback');
+      if (!feedback) return;
+
+      feedback.classList.add('show');
+      setTimeout(() => feedback.classList.remove('show'), 1200);
     }
 
     function fallbackCopy(text, link) {
@@ -814,7 +819,8 @@
         document.execCommand('copy');
         showCopyFeedback(link);
         // Show manual copy message
-        const feedback = link.querySelector('.copy-feedback');
+        const wrap = link.closest('.hero-contact');
+        const feedback = wrap ? wrap.querySelector('.copy-feedback') : null;
         if (feedback) {
           feedback.textContent = 'select to copy';
           setTimeout(() => {
@@ -823,7 +829,8 @@
         }
       } catch (err) {
         // If all fails, show manual message
-        const feedback = link.querySelector('.copy-feedback');
+        const wrap = link.closest('.hero-contact');
+        const feedback = wrap ? wrap.querySelector('.copy-feedback') : null;
         if (feedback) {
           feedback.textContent = 'select to copy';
           feedback.classList.add('show');
