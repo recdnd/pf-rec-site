@@ -460,8 +460,7 @@
       </div>
       <div class="hero-title">Product-oriented Engineer / Product Builder</div>
       <p class="hero-description">
-        I translate ambiguous requirements into usable systems, working at a high abstraction layer.
-        My focus is on product architecture, UX-driven system design, and full-stack prototyping — bridging complex technology with coherent user-facing tools.
+        Product-oriented systems engineer focused on turning complex, ambiguous problem spaces into coherent, usable software systems. My work sits at the intersection of system architecture, execution models, and UX-driven product design, with hands-on experience taking ideas from research prototypes to user-facing platforms.
       </p>
     </section>
 
@@ -470,14 +469,13 @@
       <div class="project-item">
         <div class="project-title">Rikkyo University, Tokyo</div>
         <div class="project-meta">B.A. in History (Expected Jan 2027)</div>
-        <p>Focus: institutional systems, bureaucracy, legal structures, and information organization</p>
-        <p>Supplemented with AI ethics, Information Science coursework</p>
+        <p>Focus: institutional systems, bureaucracy, legal structures, and information organization.</p>
+        <p>Supplemented with AI ethics and information science coursework.</p>
       </div>
       <div class="project-item">
-        <div class="project-title">Early University Coursework (U.S.)</div>
+        <div class="project-title">University Coursework (U.S.)</div>
         <div class="project-meta">Virginia Tech / Chicago</div>
-        <p>Calculus I–II, Linear Algebra, Data structures & object-oriented programming</p>
-        <p>Humanities & design coursework</p>
+        <p>Calculus I–II, Linear Algebra, Data Structures, Object-Oriented Programming, Humanities and design coursework.</p>
       </div>
     </section>
 
@@ -514,27 +512,27 @@
     <section id="projects">
       <h2>SELECTED PROJECTS</h2>
       <div class="project-item">
-        <div class="project-title">Spiral / SpiralVM</div>
+        <div class="project-title">Spiral — Language & Execution System</div>
         <div class="project-meta">Founder & Lead Developer | 2024–Present</div>
+        <p>Designed and built an experimental system for managing complex event histories while preserving explainability and user-facing clarity.</p>
         <div class="project-description">
           <ul>
-            <li>Designed an experimental language-and-system framework for abstraction, recursion, and memory-bound interaction.</li>
-            <li>Built a C-based virtual machine and execution pipeline to run a custom DSL for structured language modeling and tool-like behaviors.</li>
-            <li>Engineered a traceable event-history kernel with conflict-aware observability to ensure stable, explainable system behavior.</li>
-            <li>Shipped product-level prototypes, translating research specifications into usable interfaces and tooling.</li>
+            <li>Designed a custom execution model and DSL to represent structured intent instead of raw commands.</li>
+            <li>Built a traceable, append-only event-history kernel that computes a meaningful "recent state" from causal relationships rather than destructive updates.</li>
+            <li>Took the system from research concepts to working prototypes with real users and UI constraints.</li>
           </ul>
         </div>
       </div>
       <div class="project-item">
         <div class="project-title">
-          spiral-core-series — Append-only event history kernel
+          spiral-core-series — Event History Kernel
         </div>
-        <div class="project-meta">Open-source prototype series | 2025</div>
+        <div class="project-meta">Open-source research prototype | 2025</div>
         <div class="project-description">
           <ul>
-            <li>Shipped v0.46: RECENT_A frontier — a trace-closure view over an append-only event DAG (not a sliding window).</li>
-            <li>Implemented conflict-aware observability with "strong binding": derived conflict signals must be attributable to a concrete conflict input pair via parent_ids.</li>
-            <li>Enforced invariants: append-only log (no edits/deletes) + parent consistency checks for explainable causality.</li>
+            <li>Implemented an append-only event DAG with a computed "RECENT_A" frontier (v0.46), providing a causally explainable recent view without log truncation.</li>
+            <li>Enforced strong invariants: no mutation, parent consistency, and conflict signals attributable to concrete input pairs.</li>
+            <li>Used as the formal and technical foundation for the Spiral system.</li>
           </ul>
         </div>
       </div>
@@ -543,20 +541,19 @@
         <div class="project-meta">Developer & System Architect | 2025</div>
         <div class="project-description">
           <ul>
-            <li>Built a full-stack semantic editor platform with modular backend architecture and AI-assisted rendering.</li>
+            <li>Built a full-stack platform for interacting with the Spiral system through a human-readable editor.</li>
             <li>Designed end-to-end product stack (React / Node / PostgreSQL / Stripe / AI APIs).</li>
             <li>Focused on usability, system coherence, and iterative product design.</li>
           </ul>
         </div>
       </div>
       <div class="project-item">
-        <div class="project-title">Applied AI Tools & Platforms (Selected)</div>
-        <div class="project-meta">Full-stack Developer | 2023–2025</div>
+        <div class="project-title">Applied Systems & Internal Tools (Selected)</div>
         <div class="project-description">
           <ul>
-            <li>Developed chatbots and event-driven systems for QQ / Discord using Python.</li>
-            <li>Built a research-oriented publication platform with structured citation management and AI-assisted summaries.</li>
-            <li>Designed internal tools emphasizing workflow clarity and user-facing simplicity.</li>
+            <li>Built event-driven automation and messaging systems in Python for QQ and Discord, focusing on reliability, state handling, and long-running workflows.</li>
+            <li>Developed a research-oriented publication platform with structured citation management and AI-assisted summarization.</li>
+            <li>Designed internal tools prioritizing workflow clarity, maintainability, and user-facing simplicity.</li>
           </ul>
         </div>
       </div>
