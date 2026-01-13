@@ -516,6 +516,12 @@
       color: white;
     }
     
+    /* 確保 top-bar 在反色模式下也保持固定定位 */
+    html.inverted .top-bar {
+      position: fixed;
+      z-index: 1000;
+    }
+    
     /* Inverted mode: download link color */
     html.inverted .download-link {
       color: #999999;
