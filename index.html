@@ -495,31 +495,26 @@
       text-decoration: none;
     }
     
-    /* Persistent invert mode */
+    /* Persistent invert mode (avoid breaking position: fixed) */
     html.inverted {
       background: var(--bg);
     }
 
-    html.inverted body {
+    /* Invert the page content (not body, to preserve fixed positioning) */
+    html.inverted #page {
       filter: invert(1);
     }
 
-    /* 让图片/emoji不被反相（可选：如果你不在意可删） */
-    html.inverted img,
-    html.inverted video,
-    html.inverted iframe {
+    /* Invert the fixed top bar separately (doesn't break fixed positioning) */
+    html.inverted .top-bar {
       filter: invert(1);
     }
-    
-    /* 让主题切换按钮文字在黑夜模式下更清晰 */
-    html.inverted .theme-toggle {
-      color: white;
-    }
-    
-    /* 確保 top-bar 在反色模式下也保持固定定位 */
-    html.inverted .top-bar {
-      position: fixed;
-      z-index: 1000;
+
+    /* 让图片/emoji不被反相（只作用在 #page 内） */
+    html.inverted #page img,
+    html.inverted #page video,
+    html.inverted #page iframe {
+      filter: invert(1);
     }
     
     /* Inverted mode: download link color */
@@ -572,6 +567,7 @@
     <button class="theme-toggle" onclick="goToMobile()" aria-label="Go to mobile version">📱</button>
   </div>
   
+		<div id="page">
 		<div class="container">
     
     <section class="hero">
@@ -710,6 +706,7 @@
       <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">recdnd</a></p>
       <a href="XueJuntao_ProductEngineer.pdf" class="download-link" download>↧ Download résumé.pdf</a>
     </section>
+  </div>
   </div>
   
   <script>
