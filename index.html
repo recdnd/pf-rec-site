@@ -174,6 +174,10 @@
       backdrop-filter: invert(1);
     }
     
+    #page {
+      background: var(--bg);
+    }
+    
     .container {
       max-width: 760px;
       margin: 0 auto;
@@ -498,6 +502,11 @@
     /* Persistent invert mode (avoid breaking position: fixed) */
     html.inverted {
       background: var(--bg);
+    }
+
+    /* Set body background to black in inverted mode (so #page invert works correctly) */
+    html.inverted body {
+      background: black;
     }
 
     /* Invert the page content (not body, to preserve fixed positioning) */
