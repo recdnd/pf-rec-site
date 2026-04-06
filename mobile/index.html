@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Xue Juntao — pf.rec.ooo</title>
+  <meta name="description" content="Xue Juntao (Rec) — Product-oriented Engineer / Product Builder. Full-stack prototyping, system design, and experimental DSL / VM projects (Spiral).">
+  <link rel="icon" type="image/png" href="../redrec32.png">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://rec.ooo/#person",
+      "name": "Xue Juntao",
+      "alternateName": ["Rec", "Rec Dungeons", "recdnd"],
+      "email": "mailto:r@rec.ooo",
+      "jobTitle": "Product-oriented Engineer / Product Builder",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tokyo",
+        "addressCountry": "JP"
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Rikkyo University" }
+      ],
+      "knowsLanguage": ["zh", "en", "ja"],
+      "url": "https://rec.ooo/",
+      "sameAs": [
+        "https://github.com/recdnd",
+        "https://git.rec.ooo",
+        "https://www.linkedin.com/in/juntaoxue/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://rec.ooo/#website",
+      "url": "https://rec.ooo/",
+      "name": "rec.ooo",
+      "publisher": { "@id": "https://rec.ooo/#person" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pf.rec.ooo/#webpage",
+      "url": "https://pf.rec.ooo/",
+      "name": "Xue Juntao — pf.rec.ooo",
+      "isPartOf": { "@id": "https://rec.ooo/#website" },
+      "about": { "@id": "https://rec.ooo/#person" }
+    }
+  ]
+}
+</script>
+  <style>
+    /* Theme vars (default = light) */
+    :root {
+      --bg: white;
+      --fg: black;
+      --text: black;
+      --accent: #dc2626;
+      --btn-bg: rgba(0, 0, 0, 0.1);
+      --particle-color: rgba(220, 38, 38, 0.3);
+    }
+
+    /* Persistent invert mode */
+    html.inverted {
+      background: var(--bg);
+    }
+
+    #invertLayer {
+      background-color: var(--bg);
+      min-height: 100vh;
+    }
+    
+    html.inverted #invertLayer {
+      filter: invert(1);
+    }
+
+    /* 让图片/emoji不被反相（可选：如果你不在意可删） */
+    html.inverted #invertLayer img,
+    html.inverted #invertLayer video,
+    html.inverted #invertLayer iframe {
+      filter: invert(1);
+    }
+    
+    /* 让导航按钮文字在黑夜模式下更清晰 */
+    html.inverted .nav-toggle:not(.theme-toggle-mobile) {
+      color: white;
+    }
+    
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Collapsed toggle button */
+    .nav-toggle {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text);
+      background-color: var(--btn-bg);
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      transition: opacity 0.3s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 101;
+      opacity: 0.9;
+    }
+
+    .theme-toggle-mobile {
+      bottom: auto !important;
+      top: 1rem !important;
+      left: auto !important;
+      right: 1rem !important;
+    }
+
+    .nav-toggle:active {
+      transform: scale(0.95);
+    }
+
+    .nav-toggle.hidden {
+      display: none;
+    }
+    
+    /* Ink spread overlay */
+    /* Ink spread overlay: invert the BACKDROP (page underneath) */
+    .theme-ink {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      pointer-events: none;
+      will-change: clip-path;
+      clip-path: circle(0px at 50% 50%);
+
+      /* a tiny alpha so backdrop-filter actually applies (Safari/Chrome need it) */
+      background: var(--ink-tint, rgba(0,0,0,0.001));
+
+      -webkit-backdrop-filter: invert(1);
+      backdrop-filter: invert(1);
+    }
+
+    /* Side buttons container */
+    .side-buttons {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      z-index: 100;
+      opacity: 0.9;
+      transition: opacity 0.3s;
+      pointer-events: auto;
+    }
+
+    .side-buttons.scrolling {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .side-buttons.collapsed {
+      display: none;
+    }
+
+    .left-buttons {
+      left: 0.75rem;
+    }
+
+    .right-buttons {
+      right: 0.75rem;
+    }
+
+    .circle-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text);
+      background-color: var(--btn-bg);
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circle-btn:active {
+      transform: scale(0.95);
+      background-color: var(--accent);
+      color: white;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 2rem 1.5rem 3rem;
+      margin: 0 auto;
+      padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-top: 1rem;
+      padding-left: 60px; /* Extra space to avoid floating buttons */
+      padding-right: 60px;
+    }
+
+    .hero-name {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+      font-weight: normal;
+    }
+
+    .hero-location {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .hero-contact {
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .hero-contact a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .hero-contact a:hover {
+      color: var(--accent);
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .hero-links a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .hero-links a:hover {
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .hero-description {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      text-align: left;
+      max-width: 100%;
+    }
+
+    section {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: normal;
+    }
+
+    p {
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      margin-bottom: 0.6rem;
+      padding-left: 1.2rem;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .project-item {
+      margin-bottom: 2rem;
+    }
+
+    .project-title {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .project-meta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-description {
+      margin-top: 0.5rem;
+    }
+
+    .project-description ul {
+      margin-top: 0.5rem;
+    }
+    
+		#particleCanvas {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100vw;
+		  height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+
+    @media (max-width: 375px) {
+      .container {
+        padding: 1.5rem 1.2rem 2.5rem;
+        padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+      }
+      
+      .side-buttons {
+        gap: 1rem;
+      }
+      
+      .circle-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      
+      .left-buttons {
+        left: 0.5rem;
+      }
+      
+      .right-buttons {
+        right: 0.5rem;
+      }
+
+      .nav-toggle {
+        bottom: 0.75rem;
+        left: 0.75rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+      
+      .theme-toggle-mobile {
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+		}
+  </style>
+</head>
+<body class="light">
+  <div id="appRoot">
+    <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle navigation">⋯</button>
+    <button class="nav-toggle theme-toggle-mobile" id="themeToggleMobile" onclick="toggleInvert(event)" aria-label="Toggle invert">💡</button>
+
+    <div class="side-buttons left-buttons collapsed" id="leftButtons">
+      <!-- <button class="circle-btn" onclick="confirmJump('../index.html', '⚠️Are you on a computer?Please don\'t use the desktop site on tablet or phone./你使用的是電腦嗎?請不要用平板或手機打開桌面版./パソコンをご利用ですか？デスクトップ版はタブレットやスマートフォンで開かないでください')" aria-label="Desktop version">🖥</button> -->
+      <button class="circle-btn" onclick="handleNavAction('https://ux.rec.ooo', true, 'Open ux.rec.ooo(external site). Confirm jump?')" aria-label="UX site">🖼️</button>
+      <button class="circle-btn" onclick="handleNavAction('top')" aria-label="Home">⌂</button>
+      <button class="circle-btn" onclick="handleNavAction('education')" aria-label="Education">🎓</button>
+      <button class="circle-btn" onclick="handleNavAction('skills')" aria-label="Skills">🧰</button>
+      <button class="circle-btn" onclick="handleNavAction('projects')" aria-label="Projects">🧱</button>
+  </div>
+
+    <div class="side-buttons right-buttons collapsed" id="rightButtons">
+      <button class="circle-btn" onclick="handleNavAction('mailto:r@rec.ooo', true, 'Compose E-mail to me. Confirm?')" aria-label="Email">✉️</button>
+      <button class="circle-btn" onclick="handleNavAction('https://git.rec.ooo', true, 'Open Github/recdnd(external site). Confirm jump?')" aria-label="GitHub">🐈‍⬛</button>
+      <button class="circle-btn" onclick="handleNavAction('https://spiral.ooo', true, 'Open live product demo(external site). Confirm jump?')" aria-label="Spiral.ooo">🔗</button>
+      <button class="circle-btn" onclick="confirmJump('https://github.com/recdnd/spiral-core-series', 'Open spiral-core-series(external site). Confirm jump?')">🌀*</button>
+      <button class="circle-btn" onclick="handleDownloadResume()" aria-label="Download Resume">⇩</button>
+    </div>
+
+    <!-- 👇 新增一層，專門給 invert -->
+    <div id="invertLayer">
+      <canvas id="particleCanvas"></canvas>
+
+      <div class="container" id="top">
+    <section class="hero">
+      <h1 class="hero-name">Xue Juntao</h1>
+      <div class="hero-location">Tokyo, Japan</div>
+      <div class="hero-contact">
+        📧 <a href="mailto:r@rec.ooo">r@rec.ooo</a>
+      </div>
+      <div class="hero-links">
+        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">🐈‍⬛ git.rec.ooo</a>
+      </div>
+      <div class="hero-title">Product-oriented Engineer / Product Builder</div>
+      <p class="hero-description">
+        I translate ambiguous requirements into usable systems, working at a high abstraction layer.
+        My focus is on product architecture, UX-driven system design, and full-stack prototyping — bridging complex technology with coherent user-facing tools.
+      </p>
+    </section>
+
+    <section id="education">
+      <h2>EDUCATION</h2>
+      <div class="project-item">
+        <div class="project-title">Rikkyo University, Tokyo</div>
+        <div class="project-meta">B.A. in History (Expected Jan 2027)</div>
+        <p>Focus: institutional systems, bureaucracy, legal structures, and information organization</p>
+        <p>Supplemented with AI ethics, Information Science coursework</p>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Early University Coursework (U.S.)</div>
+        <div class="project-meta">Virginia Tech / Chicago</div>
+        <p>Calculus I–II, Linear Algebra, Data structures & object-oriented programming</p>
+        <p>Humanities & design coursework</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>CORE SKILLS (Selected)</h2>
+      <h3>Product & System Design</h3>
+      <ul>
+        <li>Product architecture & abstraction</li>
+        <li>UX-driven system design</li>
+        <li>Workflow & requirement structuring</li>
+        <li>Tooling & prototype development</li>
+      </ul>
+      <h3>Engineering</h3>
+      <ul>
+        <li>Languages: Python, TypeScript/JavaScript, C</li>
+        <li>Frontend: React, TypeScript, Tailwind, Radix UI</li>
+        <li>Backend: Node.js, Express, REST APIs, WebSocket</li>
+        <li>Database: PostgreSQL, Drizzle ORM, Firebase Auth</li>
+      </ul>
+      <h3>AI & Applied Systems</h3>
+      <ul>
+        <li>LLM API integration (OpenAI, Claude)</li>
+        <li>Prompt architecture & symbolic systems</li>
+        <li>Custom DSL design & C-based interpreter</li>
+        <li>AI-assisted workflows (non-algorithm focus)</li>
+      </ul>
+      <h3>Design</h3>
+      <ul>
+        <li>Figma, Adobe Suite, CSP</li>
+        <li>UI system & interaction prototyping</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>SELECTED PROJECTS</h2>
+      <div class="project-item">
+        <div class="project-title">Spiral / SpiralVM</div>
+        <div class="project-meta">Founder & Lead Developer | 2024–Present</div>
+        <div class="project-description">
+          <ul>
+            <li>Designed an experimental language-and-system framework for abstraction, recursion, and memory-bound interaction.</li>
+            <li>Built a C-based virtual machine and execution pipeline to run a custom DSL for structured language modeling and tool-like behaviors.</li>
+            <li>Engineered a traceable event-history kernel with conflict-aware observability to ensure stable, explainable system behavior.</li>
+            <li>Shipped product-level prototypes, translating research specifications into usable interfaces and tooling.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">
+          spiral-core-series — Append-only event history kernel
+        </div>
+        <div class="project-meta">Open-source prototype series | 2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Shipped v0.46: RECENT_A frontier — a trace-closure view over an append-only event DAG (not a sliding window).</li>
+            <li>Implemented conflict-aware observability with "strong binding": derived conflict signals must be attributable to a concrete conflict input pair via parent_ids.</li>
+            <li>Enforced invariants: append-only log (no edits/deletes) + parent consistency checks for explainable causality.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Spiral.ooo — Product Prototype Platform</div>
+        <div class="project-meta">Developer & System Architect | 2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Built a full-stack semantic editor platform with modular backend architecture and AI-assisted rendering.</li>
+            <li>Designed end-to-end product stack (React / Node / PostgreSQL / Stripe / AI APIs).</li>
+            <li>Focused on usability, system coherence, and iterative product design.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Applied AI Tools & Platforms (Selected)</div>
+        <div class="project-meta">Full-stack Developer | 2023–2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Developed chatbots and event-driven systems for QQ / Discord using Python.</li>
+            <li>Built a research-oriented publication platform with structured citation management and AI-assisted summaries.</li>
+            <li>Designed internal tools emphasizing workflow clarity and user-facing simplicity.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="languages">
+      <h2>LANGUAGES</h2>
+      <ul>
+        <li>Chinese (Native)</li>
+        <li>English (Fluent)</li>
+        <li>Japanese (Fluent / N1)</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <h2>CONTACT</h2>
+      <p>Email: <a href="mailto:r@rec.ooo">r@rec.ooo</a></p>
+      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">recdnd</a></p>
+    </section>
+  </div>
+    </div>
+  </div>
+
+  <script>
+    let isNavExpanded = false;
+    let scrollTimeout = null;
+    let isScrolling = false;
+
+    // Toggle navigation
+    function toggleNav() {
+      isNavExpanded = !isNavExpanded;
+      const leftButtons = document.getElementById('leftButtons');
+      const rightButtons = document.getElementById('rightButtons');
+      const navToggle = document.getElementById('navToggle');
+
+      if (isNavExpanded) {
+        leftButtons.classList.remove('collapsed');
+        rightButtons.classList.remove('collapsed');
+        navToggle.classList.add('hidden');
+      } else {
+        collapseNav();
+      }
+
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(30);
+      }
+    }
+
+    // Collapse navigation
+    function collapseNav() {
+      isNavExpanded = false;
+      const leftButtons = document.getElementById('leftButtons');
+      const rightButtons = document.getElementById('rightButtons');
+      const navToggle = document.getElementById('navToggle');
+
+      leftButtons.classList.add('collapsed');
+      rightButtons.classList.add('collapsed');
+      navToggle.classList.remove('hidden');
+    }
+
+    // Handle navigation action
+    function handleNavAction(target, isExternal = false, message = null) {
+      if (isExternal) {
+        confirmJump(target, message);
+      } else {
+        scrollToSection(target);
+      }
+      // Auto-collapse after action
+      setTimeout(collapseNav, 300);
+    }
+
+    // Smooth scroll to section
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(30);
+      }
+    }
+
+    // Confirm jump for external links (only for circle buttons)
+    function confirmJump(url, message = "Open external link?") {
+      if (confirm(message)) {
+        window.location.href = url;
+      }
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(50);
+      }
+    }
+
+    // Download resume
+    function handleDownloadResume() {
+      if (confirm("Download résumé.pdf. Continue?")) {
+        const link = document.createElement('a');
+        link.href = '../XueJuntao_ProductEngineer.pdf';
+        link.download = 'XueJuntao_ProductEngineer.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      // Auto-collapse after action
+      setTimeout(collapseNav, 300);
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(50);
+      }
+    }
+
+    // apply saved mode on load
+    (function () {
+      const saved = localStorage.getItem("pf_inverted");
+      if (saved === "1") document.documentElement.classList.add("inverted");
+    })();
+
+    // Toggle invert with ink spread effect
+    function toggleInvert(event) {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const btn = event.currentTarget || event.target;
+      const rect = btn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      const root = document.documentElement;
+      const nextOn = !root.classList.contains("inverted");
+
+      // reduced motion: instant
+      if (reduceMotion) {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        if ("vibrate" in navigator) {
+          navigator.vibrate(30);
+        }
+        return;
+      }
+
+      const supportsBackdrop =
+        CSS.supports("backdrop-filter: invert(1)") ||
+        CSS.supports("-webkit-backdrop-filter: invert(1)");
+
+      // fallback if no backdrop-filter: just toggle
+      if (!supportsBackdrop) {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        if ("vibrate" in navigator) {
+          navigator.vibrate(30);
+        }
+        return;
+      }
+
+      // overlay: invert what's underneath while it spreads
+      const ink = document.createElement("div");
+      ink.className = "theme-ink";
+      ink.style.setProperty("--ink-tint", "rgba(0,0,0,0.001)");
+      ink.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+      document.body.appendChild(ink);
+
+      const radius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      const anim = ink.animate(
+        [
+          { clipPath: `circle(0px at ${x}px ${y}px)` },
+          { clipPath: `circle(${radius}px at ${x}px ${y}px)` }
+        ],
+        { duration: 600, easing: "cubic-bezier(0.4, 0, 0.2, 1)" }
+      );
+
+      anim.onfinish = () => {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        ink.remove();
+      };
+      
+      // Haptic feedback
+      if ("vibrate" in navigator) {
+        navigator.vibrate(30);
+      }
+    }
+
+    // Scroll handling with debounce
+    function handleScroll() {
+      if (!isNavExpanded) return;
+
+      isScrolling = true;
+      const leftButtons = document.getElementById('leftButtons');
+      const rightButtons = document.getElementById('rightButtons');
+
+      leftButtons.classList.add('scrolling');
+      rightButtons.classList.add('scrolling');
+
+      // Clear existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Debounce: restore opacity after 300ms of no scrolling
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+        leftButtons.classList.remove('scrolling');
+        rightButtons.classList.remove('scrolling');
+      }, 300);
+    }
+
+    // Click outside to collapse
+    document.addEventListener('click', (e) => {
+      if (!isNavExpanded) return;
+
+      const leftButtons = document.getElementById('leftButtons');
+      const rightButtons = document.getElementById('rightButtons');
+      const navToggle = document.getElementById('navToggle');
+
+      // Check if click is outside buttons
+      if (!leftButtons.contains(e.target) && 
+          !rightButtons.contains(e.target) && 
+          !navToggle.contains(e.target)) {
+        collapseNav();
+      }
+    });
+
+    // Scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Haptic feedback for all circle buttons
+    document.querySelectorAll('.circle-btn').forEach(btn => {
+      btn.addEventListener('touchstart', () => {
+        if ("vibrate" in navigator) {
+          navigator.vibrate(30);
+        }
+      });
+    });
+
+    // Optional subtle particle effect
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+    const particleColor = "rgba(220, 38, 38, 0.3)"; // Subtle red, low opacity
+    let isTouching = false;
+    let touchX = 0;
+    let touchY = 0;
+
+function Particle(x, y) {
+  this.x = x;
+  this.y = y;
+      this.size = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 1;
+      this.speedY = (Math.random() - 0.5) * 1;
+      this.life = 30;
+}
+
+    Particle.prototype.update = function() {
+  this.x += this.speedX;
+  this.y += this.speedY;
+      this.life--;
+      this.size *= 0.98;
+      
+      ctx.globalAlpha = Math.min(this.life / 30, 0.3);
+  ctx.fillStyle = particleColor;
+  ctx.beginPath();
+  ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+  ctx.fill();
+};
+
+function createParticles(x, y) {
+      if (isTouching) {
+        for (let i = 0; i < 3; i++) {
+    particles.push(new Particle(x, y));
+        }
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (isTouching) {
+        createParticles(touchX, touchY);
+  }
+
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+        if (particles[i].life <= 0 || particles[i].size <= 0.1) {
+      particles.splice(i, 1);
+    }
+  }
+
+  requestAnimationFrame(animateParticles);
+}
+
+document.addEventListener("touchstart", (e) => {
+      isTouching = true;
+  const touch = e.touches[0];
+      touchX = touch.clientX;
+      touchY = touch.clientY;
+});
+
+document.addEventListener("touchmove", (e) => {
+      if (isTouching) {
+  const touch = e.touches[0];
+        touchX = touch.clientX;
+        touchY = touch.clientY;
+      }
+});
+
+document.addEventListener("touchend", () => {
+      isTouching = false;
+    });
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Start animation
+    animateParticles();
+</script>
+</body>
+</html>

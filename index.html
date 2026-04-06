@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Xue Juntao — pf.rec.ooo</title>
+  <meta name="description" content="Xue Juntao (Rec) — Product-oriented Engineer / Product Builder. Full-stack prototyping, system design, and experimental DSL / VM projects (Spiral).">
+  <meta property="og:title" content="Xue Juntao (Rec) — Product-oriented Engineer / Product Builder">
+  <meta property="og:description" content="Full-stack prototyping, system design, and experimental DSL/VM systems (Spiral).">
+  <meta property="og:url" content="https://pf.rec.ooo/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="redrec32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://rec.ooo/#person",
+      "name": "Xue Juntao",
+      "alternateName": ["Rec"],
+      "email": "mailto:r@rec.ooo",
+      "jobTitle": "Product-oriented Engineer / Product Builder",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tokyo",
+        "addressCountry": "JP"
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Rikkyo University" }
+      ],
+      "knowsLanguage": ["zh", "en", "ja"],
+      "url": "https://rec.ooo/",
+      "sameAs": [
+        "https://github.com/recdnd",
+        "https://git.rec.ooo",
+        "https://www.linkedin.com/in/juntaoxue/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://rec.ooo/#website",
+      "url": "https://rec.ooo/",
+      "name": "rec.ooo",
+      "publisher": { "@id": "https://rec.ooo/#person" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pf.rec.ooo/#webpage",
+      "url": "https://pf.rec.ooo/",
+      "name": "Xue Juntao — pf.rec.ooo",
+      "isPartOf": { "@id": "https://rec.ooo/#website" },
+      "about": { "@id": "https://rec.ooo/#person" }
+    }
+  ]
+}
+</script>
+<script>
+    // Mobile redirect - single instance in head
+  (function() {
+    if (window.innerWidth <= 768) {
+      window.location.href = "mobile/index.html";
+    }
+  })();
+</script>
+  <style>
+    /* Theme vars (default = light) */
+    :root {
+      --bg: white;
+      --fg: black;
+      --text: black;
+      --accent: #dc2626;
+      --btn-bg: rgba(0, 0, 0, 0.1);
+      --particle-color: rgba(220, 38, 38, 0.3);
+    }
+
+    
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    body {
+      font-family: 'Courier New', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.25s, color 0.25s;
+    }
+    
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    
+    .top-bar .nav-links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .top-bar .site-name {
+      font-size: 0.9rem;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.25s;
+    }
+    
+    .top-bar .site-name:hover {
+      color: var(--accent);
+    }
+    
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--fg);
+      color: var(--fg);
+      padding: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: none;
+    }
+    
+    .theme-toggle + .theme-toggle {
+      margin-left: 0.8rem;
+    }
+    
+    .theme-toggle:hover {
+      background: var(--fg);
+      color: var(--bg);
+    }
+    
+    /* Ink spread overlay: invert the BACKDROP (page underneath) */
+    .theme-ink {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      pointer-events: none;
+      will-change: clip-path;
+      clip-path: circle(0px at 50% 50%);
+
+      /* a tiny alpha so backdrop-filter actually applies (Safari/Chrome need it) */
+      background: var(--ink-tint, rgba(0,0,0,0.001));
+
+      -webkit-backdrop-filter: invert(1);
+      backdrop-filter: invert(1);
+    }
+    
+    #page {
+      background: var(--bg);
+    }
+    
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .link-button {
+      color: var(--fg);
+      background: transparent;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      border: none;
+      font-family: inherit;
+      position: relative;
+      transition: color 0s, background 0s, filter 0s;
+    }
+    
+    .link-button::before {
+      content: '';
+      position: absolute;
+      left: 0px;
+    }
+    
+    .link-button:hover {
+      color: var(--accent);
+}
+
+.link-button:hover::before {
+      content: '✒';
+      opacity: 1;
+      transition: opacity 0.25s;
+    }
+    
+		.link-button:active {
+		  filter: brightness(1.8);
+		}
+		
+		.link-button:focus {
+		  outline: 1px dashed var(--fg);
+		  outline-offset: 0px;
+		}
+		
+    section {
+      margin-top: 3.5rem;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      letter-spacing: 0.3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: normal;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .hero {
+      margin-top: 0;
+    }
+    
+    .hero-name {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .hero-location {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .hero-contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 34px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-contact {
+      display: inline-block;
+      position: relative;
+      padding-bottom: 1.2rem; /* 預留 feedback 空間.顯示時不擠壓排版 */
+      font-size: 0.9rem;
+    }
+    
+    .hero-contact a {
+      color: var(--fg);
+      text-decoration: none;
+      transition: none;
+      cursor: pointer;
+    }
+    
+    .hero-contact a::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+    }
+    
+    .hero-contact a:hover {
+      color: var(--accent);
+    }
+    
+    .hero-contact a:hover::before {
+      content: '✒';
+      opacity: 1;
+      transition: opacity 0.25s;
+    }
+    
+    .hero-contact a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .hero-contact a:focus:hover {
+      outline: 1px dashed var(--accent);
+      outline-offset: 0px;
+    }
+    
+    .hero-contact .copy-feedback {
+      position: absolute;
+      top: calc(100% - 1.0rem); /* 落在 padding-bottom 預留區裡 */
+      left: 0;
+      font-size: 0.75rem;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    
+    .hero-contact .copy-feedback.show {
+      opacity: 1;
+    }
+    
+    .hero-links {
+      font-size: 0.9rem;
+    }
+    
+    .hero-links a {
+      color: var(--fg);
+      text-decoration: none;
+		  font-size: 0.9rem;
+      transition: none;
+      position: relative;
+    }
+    
+    .hero-links a::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+    }
+    
+    .hero-links a:hover {
+      color: var(--accent);
+    }
+    
+    .hero-links a:hover::before {
+      content: '✒';
+      opacity: 1;
+      transition: opacity 0.25s;
+    }
+    
+    .hero-links a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .hero-links a:focus:hover {
+      outline: 1px dashed var(--accent);
+      outline-offset: 0px;
+    }
+    
+    .hero-cta {
+      margin-top: 1.5rem;
+		  display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+		}
+    
+    .hero-cta a {
+		  color: var(--fg);
+      text-decoration: none;
+      transition: none;
+      position: relative;
+    }
+    
+    .hero-cta a:hover {
+      color: var(--accent);
+    }
+    
+    .hero-cta a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 2px;
+    }
+    
+    .hero-title {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    .hero-description {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    ul li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.2rem;
+      position: relative;
+      font-size: 0.95rem;
+    }
+    
+    ul li::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    
+    .project-item {
+      margin-bottom: 2rem;
+    }
+    
+    .project-title {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      font-size: 1.05rem;
+  color: var(--text);
+}
+
+    .project-meta {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-description {
+      margin-top: 0.5rem;
+    }
+    
+    .project-description ul {
+      margin-top: 0.5rem;
+    }
+    
+    .project-link {
+  text-decoration: none;
+      color: var(--accent);
+      transition: none;
+      position: relative;
+    }
+    
+    .project-link:focus {
+  outline: 1px dashed var(--fg);
+  outline-offset: 0px;
+}
+
+    .contact-section {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+    }
+    
+    .contact-section a {
+      color: var(--fg);
+      text-decoration: none;
+      transition: none;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .contact-section a:hover {
+      color: var(--accent);
+    }
+    
+    .contact-section a:focus {
+      outline: 1px dashed var(--fg);
+      outline-offset: 0px;
+    }
+    
+    .download-link {
+      color: #666666;
+      font-size: 0.85rem;
+      margin-top: 1.5rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    /* Persistent invert mode (avoid breaking position: fixed) */
+    html.inverted {
+      background: var(--bg);
+    }
+
+    /* Set body background to black in inverted mode (so #page invert works correctly) */
+    html.inverted body {
+      background: black;
+    }
+
+    /* Invert the page content (not body, to preserve fixed positioning) */
+    html.inverted #page {
+      filter: invert(1);
+    }
+
+    /* Invert the fixed top bar separately (doesn't break fixed positioning) */
+    html.inverted .top-bar {
+      filter: invert(1);
+    }
+
+    /* 让图片/emoji不被反相（只作用在 #page 内） */
+    html.inverted #page img,
+    html.inverted #page video,
+    html.inverted #page iframe {
+      filter: invert(1);
+    }
+    
+    /* Inverted mode: download link color */
+    html.inverted .download-link {
+      color: #999999;
+    }
+    
+    /* 1) Remove divider line + fix the gap between LANGUAGES and CONTACT */
+    #contact.contact-section {
+      border-top: none !important;   /* kill old desktop rule if it exists */
+      margin-top: 2.5rem;            /* same rhythm as other sections */
+      padding-top: 1rem;             /* same rhythm as other sections */
+    }
+
+    /* 2) Download link color + underline on entire text */
+    #contact .download-link {
+      display: inline-block;
+      margin-top: 0.8rem;
+      color: #666666 !important;     /* override generic link color */
+      text-decoration: none;
+    }
+
+    #contact .download-link:hover {
+      color: #666666 !important;     /* keep grey on hover (avoid turning accent) */
+      text-decoration: underline;    /* underline entire text on hover */
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 4rem 1.5rem 2rem;
+      }
+      
+      .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="light">
+    <div class="top-bar">
+    <a href="#top" class="site-name" onclick="handleLogoClick(event)">pf.rec.ooo</a>
+    <nav class="nav-links">
+      <a href="#education" class="link-button">Education</a>
+      <a href="#skills" class="link-button">Skills</a>
+      <a href="#projects" class="link-button">Projects</a>
+      <a href="#contact" class="link-button">Contact</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleInvert(event)" aria-label="Toggle invert">💡</button>
+    <button class="theme-toggle" onclick="goToMobile()" aria-label="Go to mobile version">📱</button>
+  </div>
+  
+		<div id="page">
+		<div class="container">
+    
+    <section class="hero">
+      <h1 class="hero-name">Xue Juntao</h1>
+      <div class="hero-location">Tokyo, Japan</div>
+      <div class="hero-contact-links">
+        <div class="hero-contact">
+          <a href="mailto:r@rec.ooo" onclick="handleCopyClick(event, 'r@rec.ooo')">📧 r@rec.ooo</a>
+          <span class="copy-feedback" aria-live="polite">copied ✓</span>
+        </div>
+        <div class="hero-links">
+          <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">🐈‍⬛ git.rec.ooo</a>
+          <a href="https://ux.rec.ooo" target="_blank" rel="noopener noreferrer">🖼️ ux.rec.ooo</a>
+        </div>
+	    </div>
+      <div class="hero-title">Product-oriented Engineer / Product Builder</div>
+      <p class="hero-description">
+        Product-oriented systems engineer focused on turning complex, ambiguous problem spaces into coherent, usable software systems.
+        My work sits at the intersection of system architecture, execution models, and UX-driven product design, with hands-on experience taking ideas from research prototypes to user-facing platforms.
+      </p>
+      <!-- <div class="hero-cta">
+        <a href="#projects">→ View Projects</a>
+        <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">→ GitHub</a>
+      </div> -->
+    </section>
+    
+    <section id="education">
+      <h2>EDUCATION</h2>
+      <div class="project-item">
+        <div class="project-title">Rikkyo University, Tokyo</div>
+        <div class="project-meta">B.A. in History (Expected Jan 2027)</div>
+        <p>Focus: institutional systems, bureaucracy, legal structures, and information organization.</p>
+        <p>Supplemented with AI ethics and information science coursework.</p>
+	  </div>
+      <div class="project-item">
+        <div class="project-title">University Coursework (U.S.)</div>
+        <div class="project-meta">Virginia Tech / Chicago</div>
+        <p>Calculus I–II, Linear Algebra, Data Structures, Object-Oriented Programming, Humanities and design coursework.</p>
+    </div>
+    </section>
+    
+    <section id="skills">
+      <h2>CORE SKILLS (Selected)</h2>
+      <h3>Product & System Design</h3>
+      <ul>
+        <li>Product architecture & abstraction</li>
+        <li>UX-driven system design</li>
+        <li>Workflow & requirement structuring</li>
+        <li>Tooling & prototype development</li>
+      </ul>
+      <h3>Engineering</h3>
+      <ul>
+        <li>Languages: Python, TypeScript/JavaScript, C</li>
+        <li>Frontend: React, TypeScript, Tailwind, Radix UI</li>
+        <li>Backend: Node.js, Express, REST APIs, WebSocket</li>
+        <li>Database: PostgreSQL, Drizzle ORM, Firebase Auth</li>
+      </ul>
+      <h3>AI & Applied Systems</h3>
+      <ul>
+        <li>LLM API integration (OpenAI, Claude)</li>
+        <li>Prompt architecture & symbolic systems</li>
+        <li>Custom DSL design & C-based interpreter</li>
+        <li>AI-assisted workflows (non-algorithm focus)</li>
+      </ul>
+      <h3>Design</h3>
+      <ul>
+        <li>Figma, Adobe Suite, CSP</li>
+        <li>UI system & interaction prototyping</li>
+      </ul>
+    </section>
+    
+    <section id="projects">
+      <h2>SELECTED PROJECTS</h2>
+      <div class="project-item">
+        <div class="project-title">Spiral — Language & Execution System</div>
+        <div class="project-meta">Founder & Lead Developer | 2024–Present</div>
+        <p>Designed and built an experimental system for managing complex event histories while preserving explainability and user-facing clarity.</p>
+        <div class="project-description">
+          <ul>
+            <li>Designed a custom execution model and DSL to represent structured intent instead of raw commands.</li>
+            <li>Built a traceable, append-only event-history kernel that computes a meaningful "recent state" from causal relationships rather than destructive updates.</li>
+            <li>Took the system from research concepts to working prototypes with real users and UI constraints.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">
+          spiral-core-series — Event History Kernel
+          <a href="https://core.rec.ooo" target="_blank" rel="noopener noreferrer" class="project-link">→</a>
+        </div>
+        <div class="project-meta">Open-source research prototype | 2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Implemented an append-only event DAG with a computed "RECENT_A" frontier (v0.46), providing a causally explainable recent view without log truncation.</li>
+            <li>Enforced strong invariants: no mutation, parent consistency, and conflict signals attributable to concrete input pairs.</li>
+            <li>Used as the formal and technical foundation for the Spiral system.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Spiral.ooo — Product Prototype Platform <a href="https://spiral.ooo" target="_blank" rel="noopener noreferrer" class="project-link">→</a></div>
+        <div class="project-meta">Developer & System Architect | 2025</div>
+        <div class="project-description">
+          <ul>
+            <li>Built a full-stack platform for interacting with the Spiral system through a human-readable editor.</li>
+            <li>Designed end-to-end product stack (React / Node / PostgreSQL / Stripe / AI APIs).</li>
+            <li>Focused on usability, system coherence, and iterative product design.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-item">
+        <div class="project-title">Applied Systems & Internal Tools (Selected)</div>
+        <div class="project-description">
+          <ul>
+            <li>Built event-driven automation and messaging systems in Python for QQ and Discord, focusing on reliability, state handling, and long-running workflows.</li>
+            <li>Developed a research-oriented publication platform with structured citation management and AI-assisted summarization.</li>
+            <li>Designed internal tools prioritizing workflow clarity, maintainability, and user-facing simplicity.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <section id="languages">
+      <h2>LANGUAGES</h2>
+      <ul>
+        <li>Chinese (Native)</li>
+        <li>English (Fluent)</li>
+        <li>Japanese (Fluent / N1)</li>
+      </ul>
+    </section>
+    
+    <section id="contact" class="contact-section">
+      <h2>CONTACT</h2>
+      <p>Email: <a href="mailto:r@rec.ooo">r@rec.ooo</a></p>
+      <p>GitHub: <a href="https://git.rec.ooo" target="_blank" rel="noopener noreferrer">recdnd</a></p>
+      <a href="XueJuntao_ProductEngineer.pdf" class="download-link" download>↧ Download résumé.pdf</a>
+    </section>
+  </div>
+  </div>
+  
+  <script>
+    // apply saved mode on load
+    (function () {
+      const saved = localStorage.getItem("pf_inverted");
+      if (saved === "1") document.documentElement.classList.add("inverted");
+    })();
+
+    function toggleInvert(event) {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const btn = event.currentTarget || event.target;
+      const rect = btn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      const root = document.documentElement;
+      const nextOn = !root.classList.contains("inverted");
+
+      // reduced motion: instant
+      if (reduceMotion) {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        return;
+      }
+
+      const supportsBackdrop =
+        CSS.supports("backdrop-filter: invert(1)") ||
+        CSS.supports("-webkit-backdrop-filter: invert(1)");
+
+      // fallback if no backdrop-filter: just toggle
+      if (!supportsBackdrop) {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        return;
+      }
+
+      // overlay: invert what's underneath while it spreads
+      const ink = document.createElement("div");
+      ink.className = "theme-ink";
+      ink.style.setProperty("--ink-tint", "rgba(0,0,0,0.001)");
+      ink.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+      document.body.appendChild(ink);
+
+      const radius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      const anim = ink.animate(
+        [
+          { clipPath: `circle(0px at ${x}px ${y}px)` },
+          { clipPath: `circle(${radius}px at ${x}px ${y}px)` }
+        ],
+        { duration: 600, easing: "cubic-bezier(0.4, 0, 0.2, 1)" }
+      );
+
+      anim.onfinish = () => {
+        root.classList.toggle("inverted", nextOn);
+        localStorage.setItem("pf_inverted", nextOn ? "1" : "0");
+        ink.remove();
+      };
+    }
+
+    // Go to mobile version
+    function goToMobile() {
+      window.location.href = "mobile/index.html";
+    }
+
+    // Logo click: smooth scroll to top
+    function handleLogoClick(event) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Copy to clipboard with inline feedback
+    function handleCopyClick(event, text) {
+      event.preventDefault();
+      const link = event.currentTarget;
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCopyFeedback(link);
+        }).catch(() => {
+          fallbackCopy(text, link);
+        });
+      } else {
+        fallbackCopy(text, link);
+      }
+    }
+
+    function showCopyFeedback(link) {
+      const wrap = link.closest('.hero-contact');
+      if (!wrap) return;
+
+      const feedback = wrap.querySelector('.copy-feedback');
+      if (!feedback) return;
+
+      feedback.classList.add('show');
+      setTimeout(() => feedback.classList.remove('show'), 1200);
+    }
+
+    function fallbackCopy(text, link) {
+      // Create temporary input to select text
+      const input = document.createElement('input');
+      input.value = text;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      try {
+        document.execCommand('copy');
+        showCopyFeedback(link);
+        // Show manual copy message
+        const wrap = link.closest('.hero-contact');
+        const feedback = wrap ? wrap.querySelector('.copy-feedback') : null;
+        if (feedback) {
+          feedback.textContent = 'select to copy';
+          setTimeout(() => {
+            feedback.textContent = 'copied ✓';
+          }, 500);
+        }
+      } catch (err) {
+        // If all fails, show manual message
+        const wrap = link.closest('.hero-contact');
+        const feedback = wrap ? wrap.querySelector('.copy-feedback') : null;
+        if (feedback) {
+          feedback.textContent = 'select to copy';
+          feedback.classList.add('show');
+          setTimeout(() => {
+            feedback.classList.remove('show');
+            feedback.textContent = 'copied ✓';
+          }, 2000);
+        }
+      }
+      document.body.removeChild(input);
+    }
+</script>
+</body>
+</html>
