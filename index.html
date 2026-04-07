@@ -270,6 +270,20 @@
       font-size: 2.2rem;
       margin-bottom: 0.3rem;
     }
+
+    .hero-name.hero-name--toggle {
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .hero-name.hero-name--toggle:focus {
+      outline: none;
+    }
+
+    .hero-name.hero-name--toggle:focus-visible {
+      outline: 1px dashed var(--fg);
+      outline-offset: 4px;
+    }
     
     .hero-location {
       color: var(--accent);
@@ -343,7 +357,7 @@
     .hero-links {
       font-size: 0.9rem;
       display: inline-flex;
-      gap: 34px;
+      gap: 38px;
     }
     
     .hero-links a {
@@ -458,6 +472,21 @@
     .project-description ul {
       margin-top: 0.5rem;
     }
+
+    .project-crosslink {
+      margin: -0.2rem 0 1.2rem;
+      font-size: 0.88rem;
+      color: #666666;
+    }
+
+    .project-crosslink a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .project-crosslink a:hover {
+      text-decoration: underline;
+    }
     
     .project-link {
   text-decoration: none;
@@ -532,6 +561,10 @@
     html.inverted .download-link {
       color: #999999;
     }
+
+    html.inverted .project-crosslink {
+      color: #999999;
+    }
     
     /* 1) Remove divider line + fix the gap between LANGUAGES and CONTACT */
     #contact.contact-section {
@@ -582,7 +615,15 @@
 		<div class="container">
     
     <section class="hero">
-      <h1 class="hero-name">Xue Juntao</h1>
+      <h1
+        class="hero-name hero-name--toggle"
+        id="hero-name-toggle"
+        role="button"
+        tabindex="0"
+        aria-label="Switch between Xue Juntao and Rec Dungeons"
+        onclick="toggleHeroName(event)"
+        onkeydown="toggleHeroNameKey(event)"
+      >Xue Juntao</h1>
       <div class="hero-location">Tokyo, Japan</div>
       <div class="hero-contact-links">
         <div class="hero-contact">
@@ -609,7 +650,7 @@
       <h2>EDUCATION</h2>
       <div class="project-item">
         <div class="project-title">Rikkyo University, Tokyo</div>
-        <div class="project-meta">B.A. in History (Expected Jan 2027)</div>
+        <div class="project-meta">B.A. in History (Expected Sep 2027)</div>
         <p>Focus: institutional systems, bureaucracy, legal structures, and information organization.</p>
         <p>Supplemented with AI ethics and information science coursework.</p>
 	  </div>
@@ -626,6 +667,7 @@
       <ul>
         <li>Product architecture & abstraction</li>
         <li>UX-driven system design</li>
+        <li>Interaction model design</li>
         <li>Workflow & requirement structuring</li>
         <li>Tooling & prototype development</li>
       </ul>
@@ -652,6 +694,9 @@
     
     <section id="projects">
       <h2>SELECTED PROJECTS</h2>
+      <p class="project-crosslink">
+        Interface showcase: <a href="https://ux.rec.ooo" target="_blank" rel="noopener noreferrer">ux.rec.ooo</a>
+      </p>
       <div class="project-item">
         <div class="project-title">Spiral — Language & Execution System</div>
         <div class="project-meta">Founder & Lead Developer | 2024–Present</div>
@@ -661,6 +706,7 @@
             <li>Designed a custom execution model and DSL to represent structured intent instead of raw commands.</li>
             <li>Built a traceable, append-only event-history kernel that computes a meaningful "recent state" from causal relationships rather than destructive updates.</li>
             <li>Took the system from research concepts to working prototypes with real users and UI constraints.</li>
+            <li>Developed UX concepts for navigating structured event histories and AI-assisted workflows in a way that remains legible to end users.</li>
           </ul>
         </div>
       </div>
@@ -791,6 +837,23 @@
     function handleLogoClick(event) {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const HERO_NAME_A = "Xue Juntao";
+    const HERO_NAME_B = "Rec Dungeons";
+
+    function toggleHeroName(event) {
+      if (event) event.preventDefault();
+      const el = document.getElementById("hero-name-toggle");
+      if (!el) return;
+      const cur = el.textContent.trim();
+      el.textContent = cur === HERO_NAME_A ? HERO_NAME_B : HERO_NAME_A;
+    }
+
+    function toggleHeroNameKey(event) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggleHeroName(event);
     }
 
     // Copy to clipboard with inline feedback
