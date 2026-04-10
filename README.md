@@ -1,6 +1,6 @@
 # pf.rec.ooo
 
-Portfolio / résumé site for Xue Juntao (Product Systems Designer / UI-UX Interaction Designer).
+Portfolio / résumé site for Xue Juntao (Product-Oriented Engineer / Product Builder).
 
 ## Overview
 
@@ -16,8 +16,8 @@ pf-rec-site/
 ├── mobile/
 │   └── index.html      # Mobile-optimized version
 ├── resume/
-│   ├── Product_Systems_Designer_Xjt.pdf   # Résumé PDF
-│   └── Product_Systems_Designer_Xjt.txt   # Plain-text source (reference)
+│   ├── Product_Builder_Opt_Xjt.pdf   # Résumé PDF
+│   └── Product_Builder_Opt_Xjt.txt    # Plain-text source (reference)
 ├── CNAME               # GitHub Pages custom domain
 └── redrec32.png        # Favicon
 ```

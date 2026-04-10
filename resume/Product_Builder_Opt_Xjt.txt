@@ -1,0 +1,120 @@
+Xue Juntao
+Tokyo, Japan
+📧 r@rec.ooo
+🌐 pf.rec.ooo
+🐈‍⬛ git.rec.ooo
+🖼️ ux.rec.ooo
+Product-Oriented Engineer / Product Builder
+I design and build original, working product systems end-to-end, translating abstract concepts into usable software and interactive interfaces.
+I am responsible for delivering functional products, combining system design, interaction modeling, and implementation into coherent product experiences.
+________________
+
+
+EDUCATION
+Rikkyo University, Tokyo
+B.A. in History (Expected Sep 2027)
+Focus: institutional systems, bureaucracy, legal structures, and information organization
+Supplemented with AI ethics and information science coursework
+University Coursework (U.S.)
+Virginia Tech / Chicago
+Calculus I–II, Linear Algebra, Data Structures, Object-Oriented Programming
+Humanities and design coursework
+________________
+
+
+CORE STRENGTHS
+Product & System Design
+-Product architecture and system-level structuring
+-UX-driven interaction and interface design
+-Workflow design and requirement translation
+-Information organization and state visibility design
+-End-to-end product thinking from concept to working system
+Frontend & Product Implementation
+-React, TypeScript, Tailwind CSS
+-Component-based UI development and interface construction
+-Building interactive product systems with real behavior
+-API integration and data flow handling in product contexts
+-Iterative interface development with rapid feedback cycles
+Technical Workflow & Implementation
+-Git-based version control and Unix-based development workflow
+-AI-assisted development (Cursor / LLM tools) for rapid prototyping and iteration under full system control
+-Code reading, debugging, and modification within existing systems
+-Frontend implementation, UI refinement, and component-level adjustments
+-Application-layer logic implementation in JavaScript / TypeScript and Python
+-API integration, debugging, and system behavior validation
+-Focused on delivering working products through iterative development rather than algorithm-heavy or low-level engineering
+Technical Exposure
+TypeScript / JavaScript, Python, C, Node.js / Express, PostgreSQL, Firebase Authentication, REST APIs / WebSocket
+Design Tools
+Figma, Adobe Suite, Clip Studio Paint, UI systems and visual prototyping
+________________
+
+
+SELECTED PROJECTS
+Spiral — Symbolic Language System and Product Ecosystem
+Founder / Product Builder / System Designer | 2024–Present
+Designed and built an original symbolic system and product ecosystem for structured AI interaction and modular execution logic.
+-Built an original system from scratch, including grammar design, module structure, and execution concepts
+-Designed and implemented a working product combining system logic, interface design, and platform behavior
+-Structured product-level features including modular accounts, permission systems, and shared identity logic
+-Led end-to-end product development from abstract system concepts to usable product form
+-Continuously iterated on system behavior, interaction models, and product structure in real usage
+spiral-core-series — Event History Core
+System Designer / Project Lead | 2025
+Designed a minimal append-only event history system as the technical foundation of Spiral.
+-Defined a traceable event model based on an append-only DAG structure
+-Designed RECENT_A as a causally closed “recent state” frontier with explainable behavior
+-Specified system invariants including immutability, parent consistency, and conflict traceability
+-Developed the system as an executable prototype with clearly defined behavior
+-Implementation realized through AI-assisted workflows under my direction, with full control over system structure and behavior
+Spiral.ooo — Product Prototype Platform
+Product Builder / Frontend Implementation | 2025
+Built a working browser-based product system that turns the Spiral model into a usable interface.
+-Designed and implemented a continuous workspace model replacing session-based interaction
+-Built a functioning frontend interface enabling real interaction with system behavior
+-Integrated API-based logic and interface behavior to validate product usability
+-Designed interaction flows enabling in-context control over document state and behavior
+-Implemented AI-assisted editing workflows directly within the product surface
+-Delivered a fully functional product prototype validated through real usage scenarios
+Nest — Personal Art Archive Platform
+Product Builder / Frontend System Design | 2025
+Built a static-first personal content platform with structured data and SEO-oriented architecture.
+-Designed and implemented a single-page interface for navigating structured content by pack and tag
+-Built a structured data system controlling content organization and display
+-Implemented static generation for content pages with SEO indexing and metadata
+-Focused on usability, discoverability, and long-term maintainability
+-Delivered a fully functional and indexable deployed platform
+BraintankAI — Research Publication Platform
+Product Builder / Full-stack Implementation | 2025–Present
+Built an AI-powered research publication platform combining structured articles, search, and content workflows.
+-Designed and implemented a full-stack system including frontend, backend API, and database integration
+-Built article browsing, search, and admin CMS for managing AI-assisted content
+-Integrated LLM-based workflows with structured publication interfaces
+-Implemented server-side SEO optimization and citation-aware rendering
+-Delivered a production-ready system supporting real-world publishing workflows
+EntaticSpiral — Documentation & Knowledge System
+System Designer / Documentation Architecture | 2025–Present
+Built a static documentation system as the canonical reference layer for the Spiral language field.
+-Designed a structured knowledge system for terminology, axioms, and essays
+-Implemented a Markdown-to-HTML build pipeline with validation and structured rendering
+-Built a fully static, indexable documentation system with search and citation structure
+-Focused on clarity, structure, and long-term maintainability
+-Positioned as the canonical reference system for the broader ecosystem
+Applied Systems & Internal Tools
+Independent Systems & Tools | 2017–Present
+-Built workflow-oriented tools and messaging systems for long-running and stateful processes
+-Developed internal systems emphasizing clarity, maintainability, and usability
+-Created structured content and drafting systems integrating AI-assisted workflows
+________________
+
+
+LANGUAGES
+Chinese (Native)
+English (Fluent)
+Japanese (Fluent / JLPT N1)
+________________
+
+
+CONTACT
+Email: r@rec.ooo
+GitHub: recdnd
