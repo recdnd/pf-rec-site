@@ -25,3 +25,6 @@ index2.html
 
 # Logs
 *.log
+
+# Local résumé snapshots (optional)
+resume/previous_resume_snapshot.txt
