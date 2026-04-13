@@ -1,4 +1,4 @@
-Xue Juntao
+﻿Xue Juntao
 Tokyo, Japan
 📧 r@rec.ooo
 🌐 pf.rec.ooo
@@ -84,14 +84,6 @@ Built a static-first personal content platform with structured data and SEO-orie
 -Implemented static generation for content pages with SEO indexing and metadata
 -Focused on usability, discoverability, and long-term maintainability
 -Delivered a fully functional and indexable deployed platform
-BraintankAI — Research Publication Platform
-Product Builder / Full-stack Implementation | 2025–Present
-Built an AI-powered research publication platform combining structured articles, search, and content workflows.
--Designed and implemented a full-stack system including frontend, backend API, and database integration
--Built article browsing, search, and admin CMS for managing AI-assisted content
--Integrated LLM-based workflows with structured publication interfaces
--Implemented server-side SEO optimization and citation-aware rendering
--Delivered a production-ready system supporting real-world publishing workflows
 EntaticSpiral — Documentation & Knowledge System
 System Designer / Documentation Architecture | 2025–Present
 Built a static documentation system as the canonical reference layer for the Spiral language field.
