@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "version": "2026-07",
+    "positioning": "product-builder",
+    "derived_from": "PD+FC/HEAD.md@2026-05-25 + DungeonsRoot survey 2026-07-28",
+    "note": "全新重寫，不參照 2026-04 舊版文案。draft:true 的條目 = AI 依 repo 現況起草、待 Rec 校核。show 開關 = T2 策展，Rec 專屬。"
+  },
+  "hero": {
+    "title_en": "Product Builder / Systems Designer",
+    "title_ja": "プロダクトビルダー／システムデザイナー",
+    "description_en": "I build working product systems end-to-end — from data governance and system specification to interface and deployment.<br><br>My work spans an ecosystem of self-built tools, sites, and governance standards, developed and operated as one coherent personal infrastructure.",
+    "description_ja": "データガバナンスとシステム仕様の設計から、インターフェース実装・デプロイまで、動くプロダクトシステムをエンドツーエンドで構築しています。<br><br>自作のツール群・サイト群・ガバナンス規格を、一つの一貫した個人インフラとして開発・運用しています。"
+  },
+  "strengths": [
+    {
+      "heading_en": "System Governance & Specification",
+      "heading_ja": "システムガバナンス＆仕様設計",
+      "items_en": [
+        "Tiered data governance design (constants / state / curation / generation) with explicit AI permission boundaries",
+        "Written system standards: deploy, hosting, naming, port registry, and design-mode specifications maintained as a living spec library",
+        "Provenance-first architecture: every derived surface traces back to a single source of truth"
+      ],
+      "items_ja": [
+        "階層型データガバナンス設計（定数／状態／キュレーション／生成）と、AI権限境界の明示的定義",
+        "デプロイ・ホスティング・命名・ポート台帳・デザインモードを網羅する、生きた規格書ライブラリの整備",
+        "すべての派生面が単一の真値に遡れる、来歴（プロビナンス）優先のアーキテクチャ"
+      ]
+    },
+    {
+      "heading_en": "Product & Interface",
+      "heading_ja": "プロダクト＆インターフェース",
+      "items_en": [
+        "End-to-end product construction: concept, data model, interaction design, implementation, deployment",
+        "A documented personal design language (8 UI modes with explicit anti-patterns), applied consistently across all products",
+        "React / TypeScript, vanilla-first static sites, Chrome extensions (MV3), PWA"
+      ],
+      "items_ja": [
+        "構想・データモデル・インタラクション設計・実装・デプロイまでのエンドツーエンドなプロダクト構築",
+        "文書化された個人デザイン言語（8つのUIモード＋明示的アンチパターン集）を全プロダクトに一貫適用",
+        "React / TypeScript、バニラ優先の静的サイト、Chrome拡張（MV3）、PWA"
+      ]
+    },
+    {
+      "heading_en": "Tooling & Automation",
+      "heading_ja": "ツーリング＆自動化",
+      "items_en": [
+        "Self-built toolchain: form-filling copilot with site-learning, device-local quick-fill PWA, DNS/deploy CLI rituals",
+        "Conservative automation principles: learned data first, all-or-nothing group matching, refuse over guess",
+        "AI-assisted development under explicit direction, with full control of system structure and behavior"
+      ],
+      "items_ja": [
+        "自作ツールチェーン：サイト学習機能つきフォーム記入コパイロット、端末ローカルのクイックフィルPWA、DNS／デプロイCLI",
+        "保守的自動化原則：学習データ優先、グループ単位のall-or-nothing照合、推測より拒否",
+        "本人の明示的指揮下でのAI支援開発（システム構造と挙動を完全掌握）"
+      ]
+    }
+  ],
+  "stack": {
+    "tech_en": "TypeScript / JavaScript, Python, Node.js, React, PostgreSQL, REST / WebSocket, Chrome Extension (MV3), GitHub Pages / Vercel / DNS ops",
+    "tech_ja": "TypeScript / JavaScript、Python、Node.js、React、PostgreSQL、REST / WebSocket、Chrome拡張（MV3）、GitHub Pages / Vercel / DNS運用",
+    "design_en": "Figma, Adobe Suite, Clip Studio Paint, self-authored design-spec system",
+    "design_ja": "Figma、Adobe Suite、Clip Studio Paint、自作デザイン規格システム"
+  },
+  "projects": [
+    {
+      "id": "pdfc",
+      "show": true, "status": "active", "tier": "flagship", "draft": false,
+      "title_en": "Personal Data Governance & Form Copilot (PD+FC)",
+      "title_ja": "個人データガバナンス＆フォームコパイロット（PD+FC）",
+      "link": "",
+      "meta_en": "System Designer / Builder | 2026–Present",
+      "meta_ja": "システムデザイナー／ビルダー | 2026–現在",
+      "summary_en": "A governed personal data system with a single source of truth, tiered AI permissions, and a Chrome copilot that fills job-application forms from it.",
+      "summary_ja": "単一真値と階層型AI権限を持つ個人データ管理システムと、そこから就職応募フォームを記入するChromeコパイロット。",
+      "bullets_en": [
+        "Designed a four-tier data model (constants / state / curation / generation) defining exactly what AI may copy, select, or generate",
+        "Built an MV3 extension: rule-based field classification, per-site learning with multiple named recordings, one-tap fill",
+        "Solved Japanese address-form fragmentation with all-or-nothing topology matching — fills only when the whole field group is recognized",
+        "Companion device-local quick-fill PWA (qf.rec.ooo): zero data ships with the page; entries live in localStorage only"
+      ],
+      "bullets_ja": [
+        "AIが「複製してよい／選択してよい／生成してよい」対象を厳密に定義する4階層データモデルを設計",
+        "MV3拡張を構築：ルールベースの欄分類、サイト別・複数名義の学習記録、ワンタップ記入",
+        "日本語住所フォームの分割問題を、グループ全体を認識できた時のみ記入するall-or-nothingトポロジー照合で解決",
+        "姉妹プロダクトの端末ローカル・クイックフィルPWA（qf.rec.ooo）：ページはデータを一切持たず、値はlocalStorageのみに保存"
+      ]
+    },
+    {
+      "id": "machine",
+      "show": true, "status": "active", "tier": "flagship", "draft": true,
+      "title_en": "Fleet Governance — Personal Infrastructure Standards",
+      "title_ja": "フリート・ガバナンス — 個人インフラ規格",
+      "link": "",
+      "meta_en": "Standards Author / Operator | 2026–Present",
+      "meta_ja": "規格策定／運用 | 2026–現在",
+      "summary_en": "A living standards library governing 20+ personal projects: deploy rituals, hosting decision trees, port registry, naming, and an 8-mode design language with documented anti-patterns.",
+      "summary_ja": "20超の個人プロジェクトを統治する生きた規格ライブラリ：デプロイ儀式、ホスティング決定木、ポート台帳、命名規約、アンチパターンを文書化した8モードのデザイン言語。",
+      "bullets_en": [
+        "Authored 17+ machine specs (deploy / localhost / journal / secrets / hosting / naming) applied across the entire project fleet",
+        "Documented a personal UI design language as 8 mutually exclusive modes with 51 cited anti-pattern rules",
+        "One-click ritual scripts (push / localhost / deploy) shared via a thin-shell library across all repos"
+      ],
+      "bullets_ja": [
+        "デプロイ／ローカル起動／ジャーナル／シークレット／ホスティング／命名など17超のmachine specを策定し全プロジェクトに適用",
+        "個人UIデザイン言語を、相互排他な8モード＋出典つき51のアンチパターン規則として文書化",
+        "ワンクリック儀式スクリプト（push / localhost / deploy）を薄殻ライブラリとして全リポジトリで共有"
+      ]
+    },
+    {
+      "id": "kiln",
+      "show": true, "status": "active", "tier": "product", "draft": true,
+      "title_en": "Kiln — Fragment Workspace",
+      "title_ja": "Kiln — フラグメント・ワークスペース",
+      "link": "https://kiln.ooo",
+      "meta_en": "Product Builder | 2026",
+      "meta_ja": "プロダクトビルダー | 2026",
+      "summary_en": "A lab-instrument style workspace for collecting, arranging, and projecting text fragments — shelf, boards, and projector views with a strict monochrome design grammar.",
+      "summary_ja": "テキスト断片の収集・配置・投影のためのラボ器械風ワークスペース。シェルフ／ボード／プロジェクター表示と厳格なモノクローム設計文法。",
+      "bullets_en": [
+        "Designed and implemented the reference implementation of the 'Lab Instrument' design mode",
+        "Card/board interaction model with drag, drawer, theming, and QR-based flows"
+      ],
+      "bullets_ja": [
+        "デザインモード「Lab Instrument」のリファレンス実装として設計・構築",
+        "ドラッグ、ドロワー、テーマ、QRフローを備えたカード／ボード操作モデル"
+      ]
+    },
+    {
+      "id": "ruvia",
+      "show": true, "status": "active", "tier": "product", "draft": true,
+      "title_en": "Ruvia — Spatial Canvas Tool",
+      "title_ja": "Ruvia — 空間キャンバスツール",
+      "link": "",
+      "meta_en": "Product Builder | 2025–2026",
+      "meta_ja": "プロダクトビルダー | 2025–2026",
+      "summary_en": "An ambient-canvas knot/graph tool where controls stay nearly invisible until needed — the reference implementation of the 'Ambient Canvas' design mode.",
+      "summary_ja": "必要になるまでコントロールがほぼ不可視の、アンビエント・キャンバス型ノット／グラフツール。デザインモード「Ambient Canvas」のリファレンス実装。",
+      "bullets_en": [
+        "Spatial arrangement model with SVG edge layers, tray system, and mobile-specific interaction design"
+      ],
+      "bullets_ja": [
+        "SVGエッジレイヤー、トレイシステム、モバイル専用インタラクションを備えた空間配置モデル"
+      ]
+    },
+    {
+      "id": "entaticspiral",
+      "show": true, "status": "maintained", "tier": "product", "draft": false,
+      "title_en": "EntaticSpiral — Documentation & Knowledge System",
+      "title_ja": "EntaticSpiral — ドキュメント＆ナレッジシステム",
+      "link": "https://entaticspiral.com",
+      "meta_en": "System Designer / Documentation Architecture | 2025–Present",
+      "meta_ja": "システムデザイナー／ドキュメントアーキテクチャ | 2025–現在",
+      "summary_en": "A fully static, indexable documentation system serving as the canonical reference layer for the Spiral language field — Markdown-to-HTML pipeline with validation, search, and citation structure.",
+      "summary_ja": "Spiral言語場の正典参照レイヤーとなる完全静的・インデックス可能なドキュメントシステム。検証・検索・引用構造を備えたMarkdown→HTMLパイプライン。",
+      "bullets_en": [
+        "Self-written build pipeline (no framework) compiling structured terminology, axioms, and essays",
+        "Designed for citability and long-term maintainability over visual churn"
+      ],
+      "bullets_ja": [
+        "フレームワーク非依存の自作ビルドパイプラインで用語・公理・エッセイを構造化コンパイル",
+        "見た目の流行より引用可能性と長期保守性を優先した設計"
+      ]
+    },
+    {
+      "id": "nest",
+      "show": true, "status": "maintained", "tier": "product", "draft": false,
+      "title_en": "Nest — Personal Art Archive Platform",
+      "title_ja": "Nest — パーソナル・アートアーカイブ",
+      "link": "https://nest.rec.ooo",
+      "meta_en": "Product Builder | 2025–Present",
+      "meta_ja": "プロダクトビルダー | 2025–現在",
+      "summary_en": "A static-first personal content platform: structured data controls organization and display, with SEO-indexed static generation per content pack.",
+      "summary_ja": "静的ファーストの個人コンテンツプラットフォーム。構造化データが組織と表示を制御し、コンテンツパック単位でSEOインデックス可能な静的生成を実装。",
+      "bullets_en": [
+        "Pack/tag navigation over a structured data system; fully indexable deployed platform"
+      ],
+      "bullets_ja": [
+        "構造化データ上のパック／タグ回遊。完全にインデックス可能な公開プラットフォーム"
+      ]
+    },
+    {
+      "id": "spiral",
+      "show": true, "status": "archived", "tier": "flagship", "draft": false,
+      "title_en": "Spiral — Symbolic Language System (archived)",
+      "title_ja": "Spiral — 記号言語システム（アーカイブ）",
+      "link": "https://spiral.ooo",
+      "meta_en": "Founder / System Designer | 2024–2025",
+      "meta_ja": "創設者／システムデザイナー | 2024–2025",
+      "summary_en": "An original symbolic system and product ecosystem for structured AI interaction: grammar, module structure, execution concepts, and a browser-based prototype platform. Development concluded; the system survives as the conceptual foundation of later work.",
+      "summary_ja": "構造化AIインタラクションのためのオリジナル記号体系とプロダクトエコシステム：文法、モジュール構造、実行概念、ブラウザベースのプロトタイプ基盤。開発は完了し、以後の制作の概念的基盤として存続。",
+      "bullets_en": [
+        "Built grammar, permission model, and append-only event-history core (spiral-core-series) from scratch",
+        "Shipped a working browser prototype validating the model in real usage before concluding the line"
+      ],
+      "bullets_ja": [
+        "文法、権限モデル、追記専用イベント履歴コア（spiral-core-series）をゼロから構築",
+        "開発終了前に、実使用でモデルを検証する動くブラウザプロトタイプを提供"
+      ]
+    },
+    {
+      "id": "qf",
+      "show": false, "status": "active", "tier": "tool", "draft": false,
+      "title_en": "qf — Device-Local Quick-Fill PWA",
+      "title_ja": "qf — 端末ローカル・クイックフィルPWA",
+      "link": "https://qf.rec.ooo",
+      "meta_en": "Builder | 2026",
+      "meta_ja": "ビルダー | 2026",
+      "summary_en": "Offline-capable tap-to-copy panel for mobile form filling; the page ships zero personal data.",
+      "summary_ja": "モバイル記入用のオフライン対応タップコピーパネル。ページ自体は個人データを一切含まない。",
+      "bullets_en": [], "bullets_ja": []
+    },
+    {
+      "id": "exe",
+      "show": false, "status": "maintained", "tier": "tool", "draft": true,
+      "title_en": "exe.rec.ooo — Micro-App Hub",
+      "title_ja": "exe.rec.ooo — マイクロアプリ・ハブ",
+      "link": "https://exe.rec.ooo",
+      "meta_en": "Builder | 2025–2026",
+      "meta_ja": "ビルダー | 2025–2026",
+      "summary_en": "A hub of seven single-purpose micro-apps sharing one design grammar.",
+      "summary_ja": "単一のデザイン文法を共有する7つの単機能マイクロアプリ群。",
+      "bullets_en": [], "bullets_ja": []
+    },
+    {
+      "id": "zenn",
+      "show": false, "status": "maintained", "tier": "content", "draft": true,
+      "title_en": "zenn.rec.ooo — Technical Writing",
+      "title_ja": "zenn.rec.ooo — 技術記事",
+      "link": "https://zenn.rec.ooo",
+      "meta_en": "Author | 2025–Present",
+      "meta_ja": "執筆 | 2025–現在",
+      "summary_en": "Technical articles mirror.",
+      "summary_ja": "技術記事ミラー。",
+      "bullets_en": [], "bullets_ja": []
+    }
+  ]
+}

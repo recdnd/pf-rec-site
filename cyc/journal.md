@@ -13,3 +13,12 @@
 ## （既往）
 
 - 2026-04-15 以前：EN 版內容定稿（resume_strategy_summary 終態宣言）、BraintankAI 下架。
+
+## 2026-07-28 · 版本包化（分包管理）
+
+- 軟資料（hero/強み/stack/專案）抽離 HTML → `data/packs/2026-07.json`（en+ja 一包雙語），
+  四頁共用 `data/render.js` 渲染；硬板塊留 HTML。schema 與換包流程見 `cyc/specs/data-model.md`。
+- 2026-07 包為全新重寫（不參照 2026-04 舊文案）：定位語改 Product Builder / Systems Designer，
+  新增 PD+FC、Fleet Governance、Kiln、Ruvia 條目；Spiral 誠實標 archived；池內另有 qf/exe/zenn（show:false）。
+- draft:true 待 Rec 校核：machine / kiln / ruvia / exe / zenn。
+- 注意：file:// 直開軟區塊為空（fetch 限制），預覽走 localhost（port 2200）。
