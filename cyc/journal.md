@@ -22,3 +22,12 @@
   新增 PD+FC、Fleet Governance、Kiln、Ruvia 條目；Spiral 誠實標 archived；池內另有 qf/exe/zenn（show:false）。
 - draft:true 待 Rec 校核：machine / kiln / ruvia / exe / zenn。
 - 注意：file:// 直開軟區塊為空（fetch 限制），預覽走 localhost（port 2200）。
+
+## 2026-07-29 · 標準版包 + PDF 進包 + legacy 歸檔
+
+- 包改目錄制：`data/packs/<版本>/` = pack.json ＋ 該版凍結 PDF，只增不改。手動維護期最後版
+  凍結進 `packs/2026-04-legacy/`（PDF＋策略檔；歷次頁面文案在 git 歷史裡）。
+- 2026-07 標準版（Rec 裁定）：只展示 **Kiln（主打 live product，kiln.ooo）＋ 總合システム設計**；
+  其餘全部蹲池 show:false。Kiln 條目依 kiln/cyc（axioms／presets／8-locale SEO）重寫，draft 解除。
+- `tools/build_pdf.py`：pack → resume_en.pdf 一鍵匯出（reportlab、A4 一頁、ATS 友好）；
+  renderer 令頁面下載鈕自動指向當前包內 PDF。

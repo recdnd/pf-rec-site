@@ -12,9 +12,11 @@ last-updated: 2026-07-28
 
 | 檔 | 角色 |
 |---|---|
-| `data/packs/<YYYY-MM>.json` | 版本包，只增不改（append-only；要改就出新版本） |
-| `data/pack.current.json` | 當前使用包（= 某版本的拷貝；換包 = 覆蓋這個檔） |
-| `data/render.js` | 渲染器，四頁共用（en/ja × desktop/mobile，`window.PF_PACK` 定 path/locale） |
+| `data/packs/<YYYY-MM>/` | 版本包目錄，只增不改：`pack.json` ＋ 該版凍結 PDF（`resume_en.pdf` 等） |
+| `data/packs/2026-04-legacy/` | 手動維護期最後版凍結（PDF＋策略檔；當時無 pack.json） |
+| `data/pack.current.json` | 當前使用包（= 某版 pack.json 的拷貝；換包 = 覆蓋這個檔） |
+| `data/render.js` | 渲染器，四頁共用；並把 `.download-link` 指向 `meta.pdf_<locale>` |
+| `tools/build_pdf.py` | pack → PDF 匯出器（只渲染 show:true；硬事實寫死於腳本、派生自 HEAD） |
 
 ## Pack schema
 

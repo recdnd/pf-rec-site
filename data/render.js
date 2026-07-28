@@ -33,6 +33,16 @@
     sk.innerHTML = h;
   }
 
+  /* PDF 下載連結指向當前包內凍結版（L3） */
+  const pdf = pack.meta && (pack.meta["pdf_" + L] || pack.meta.pdf_en);
+  if (pdf) {
+    const root = path.replace(/data\/pack\.current\.json$/, "");
+    document.querySelectorAll(".download-link").forEach(function (a) {
+      a.href = root + pdf;
+      a.setAttribute("download", pdf.split("/").pop());
+    });
+  }
+
   const pj = document.getElementById("pack-projects");
   if (pj && pack.projects) {
     let h = "";
